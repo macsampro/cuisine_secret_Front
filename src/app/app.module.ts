@@ -10,6 +10,8 @@ import { CarouselComponent } from './component/carousel/carousel.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CardComponent } from './component/card/card.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,12 @@ import { HttpClientModule } from '@angular/common/http';
     CardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule,HttpClientModule],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi:true,
+    },
+  ],  bootstrap: [AppComponent],
 })
 export class AppModule {}
