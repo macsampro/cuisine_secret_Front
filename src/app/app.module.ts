@@ -3,23 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import 'reflect-metadata';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CarouselComponent } from './component/carousel/carousel.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CardComponent } from './component/card/card.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { Page404Component } from './pages/page404/page404.component';
+import { RecipeDetailleComponent } from './component/recipe-detaille/recipe-detaille.component';
+import { PageRecipeComponent } from './pages/page-recipe/page-recipe.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    CarouselComponent,
     HomeComponent,
     CardComponent,
+    Page404Component,
+    RecipeDetailleComponent,
+    PageRecipeComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule,HttpClientModule],
   providers: [

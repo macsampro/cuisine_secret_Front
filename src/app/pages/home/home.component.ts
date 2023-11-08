@@ -11,27 +11,32 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class HomeComponent {
   users: Users[] = [];
-  newUser:Users= {
-    username: "user6",
-    email: "user6@coco.fr",
-    password_hash: "aaa"
-
-  };
-  constructor(private userServices: UsersService) {}
+  recipes: Recipes[] = [];
+  // newUser: Users = {
+  //   username: 'user6',
+  //   email: 'user6@coco.fr',
+  //   password_hash: 'aaa',
+  // };
+  constructor(
+    private userServices: UsersService,
+    private recipesService: RecipesService
+  ) {}
 
   ngOnInit() {
+    this.recipesService.getAllRecipes().subscribe((respRecipes)=> {
+      console.log(respRecipes);
+      this.recipes = respRecipes;
+
+      
+    })
     // this.userServices.getAllUsers().subscribe((user)=>{this.users = user;
     // console.log(this.users);
     // } );
-
-
-
-
   }
 
-  onSubmit(){
-    this.userServices.addUser(this.newUser).subscribe((res)=>{console.log(res);
-    } );
+  // onSubmit(){
+  //   this.userServices.addUser(this.newUser).subscribe((res)=>{console.log(res);
+  //   } );
 
-  }
+  // }
 }

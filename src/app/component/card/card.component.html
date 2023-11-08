@@ -1,13 +1,23 @@
-<div class="myCard">
-    <div class="innerCard">
-      <div class="frontSide">
-        <img src="assets/images recette/dessert01.jpeg" alt="images" width="100%">
-        <p class="title">ma recette</p>
-        <p>45 min</p>
+<div class="card" style="width: 18rem">
+  <div class="nft" >
+    <div class='main' >
+      <img class='recipeImage' src="{{oneRecipe.id_photo.id}}"/>
+      <p>{{oneRecipe.id_photo}}</p>
+      <h2>{{ oneRecipe.title }}</h2>
+      <p class='description'>{{ oneRecipe.description }}.</p>
+      <div class='tokenInfo'>
+        <div class="dificulty">
+          <p>Dificulter:</p>
+          <div>{{ oneRecipe.difficulty }}</div> 
+        </div>
+        <div class="duration">
+          <ins>◷</ins>
+          <p>{{oneRecipe.time_preparation}}</p>
+        </div>
       </div>
-      <div class="backSide">
-        <p class="title">description</p>
-        <p>une petite description rapide de ma recette</p>
+      <hr />
+      <div class=' btn-warning    '>
+        <button (click)="goRecipeDetaille(oneRecipe.id_recipe)">RECETTE</button>
       </div>
-    </div>
+    </div>w
   </div>

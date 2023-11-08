@@ -1,15 +1,4 @@
-<!-- <div *ngFor="let user of users">
-    <p>{{user.username}} </p>
-    <p>{{user.password_hash}} </p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-{{recipe | json             }} -->
+<div class="mesCards">
+    <app-card class="maCard" *ngFor="let recipe of recipes" [oneRecipe]="recipe"></app-card>
 
-<!-- </div> -->
-
-<button (click)="onSubmit()">SUBMIT</button>
+</div>
