@@ -1,14 +1,33 @@
-<div><img src="https://images01.nicepagecdn.com/c461c07a441a5d220e8feb1a/7970258974aa53589f636936/jkjk-min.jpg" alt="image de la recette" ></div>
+<div><img src="https://images01.nicepagecdn.com/c461c07a441a5d220e8feb1a/7970258974aa53589f636936/jkjk-min.jpg"
+      alt="image de la recette"></div>
 <div>
-   <div> <h1>tite de ma recette =>{{recipe}} <= </h1> </div>
-   <div>  <p>type</p> <p>temps</p> <p>dificulter</p> </div>
-   <div> 
-        <h3>ingredient</h3>
-        <p>leste de mes ingredients</p>
+   <div>
+      <h1>Title : {{recipes[0]?.title}}</h1>
+      <p>{{recipes[0]?.id_photo[0]?.id_photo}}</p>
    </div>
    <div>
-    <h3>recette pas à pas</h3>
-    <p>etape pas à pas</p>
+      <p>Description : {{recipes[0]?.description}} </p>
+      <p>recipe_type : {{recipes[0]?.recipe_type}}</p>
+      <p>difficulty : {{recipes[0]?.difficulty}}</p>
+      <p>time_preparation : {{recipes[0]?.time_preparation}}</p>
    </div>
 
-</div>
+   <div>
+      <h3>Ingrédients :</h3>
+      <ul>
+         <li *ngFor="let ingredient of recipes[0]?.ingredient">
+            {{ ingredient.ingredient_name }}
+         </li>
+      </ul>
+   </div>
+
+   <div>
+      <h3>Étapes de préparation :</h3>
+      <ul> <!-- Utiliser <ol> pour une liste ordonnée si l'ordre est important -->
+         <li *ngFor="let step of recipes[0]?.preparation_step"> <!-- Assure-toi que le nom de la propriété correspond à ton modèle de données -->
+            Etape {{ step.order_step }}: {{ step.description }}
+         </li>
+      </ul>
+   </div>
+
+

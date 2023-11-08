@@ -26,6 +26,9 @@ export class RecipeDetailleComponent {
     // Appelle le service pour obtenir une recette par son ID et s'abonne aux changements.
     this.recipesService.getRecipesById(this.recipeId).subscribe((recipe) => {
       this.recipes = [recipe]; // Une fois la recette obtenue, la stocke dans le tableau des recettes.
+      console.log('recipe',recipe);
+      console.log('recipes',this.recipes);
+      
       
     });
   }
