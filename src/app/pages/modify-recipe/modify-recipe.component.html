@@ -4,7 +4,7 @@
 
         <div class="form-group">
             <label>Titre</label>
-            <input  formControlName="title" class="form-control"
+            <input  formControlName="title" class="form-control" type="text"
                 [placeholder]="editRecipeForm.value.title || 'Titre de la recette'" />
         </div>
 
@@ -54,11 +54,10 @@
                 <button type="button" (click)="removeStep(i)">sup</button>
             </div>
             <button type="button" (click)="addStep()">add</button>
-        </div>
-        -->
+        </div> -->
+       
 
         <button type="submit" class="btn btn-success">Mettre à jour</button>
-        <!-- Le bouton annuler pourrait rediriger vers la liste des recettes ou la vue détaillée -->
         <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
     </form>
 </div>

@@ -63,11 +63,11 @@ export class ModifyRecipeComponent implements OnInit {
     }
 
 
-  // createIngredient(): FormGroup {
-  //   return this.fb.group({
-  //     ingredient_name: ['', Validators.required],
-  //   });
-  // }
+  createIngredient(): FormGroup {
+    return this.fb.group({
+      ingredient_name: ['', Validators.required],
+    });
+  }
 
   // getIngredients(): FormArray {
   //   // return this.editRecipeForm.get('ingredients') as FormArray;
@@ -75,23 +75,23 @@ export class ModifyRecipeComponent implements OnInit {
 
 
 
-  // createStep(): FormGroup {
-  //   return this.fb.group({
-  //     step_description: ['', Validators.required],
-  //   });
-  // }
+  createStep(): FormGroup {
+    return this.fb.group({
+      step_description: ['', Validators.required],
+    });
+  }
 
-  // getsteps(): FormArray {
-  //   return this.editRecipeForm.get('steps') as FormArray;
-  // }
+  getsteps(): FormArray {
+    return this.editRecipeForm.get('steps') as FormArray;
+  }
 
   // addStep(): void {
   //   this.stepsService.addPreparationSteps(this.createStep());
   // }
 
-  // removeStep(index: number): void {
-  //   this.stepsService.deletePreparationSteps(index);
-  // }
+  removeStep(index: number): void {
+    this.stepsService.deletePreparationSteps(index);
+  }
 
   onSubmit(): void {
     if (this.editRecipeForm.valid) {

@@ -1,8 +1,8 @@
 <div class="card" style="width: 18rem">
   <div class="nft" >
     <div class='main' >
-      <img class='recipeImage' src="{{oneRecipe.id_photo.id}}"/>
-      <p>{{oneRecipe.id_photo}}</p>
+      <img *ngIf="recipeImg" class='recipeImage' [src]="recipeImg"  />
+      <!-- <p>{{oneRecipe.id_photo}}</p> -->
       <h2>{{ oneRecipe.title }}</h2>
       <p class='description'>{{ oneRecipe.description }}.</p>
       <div class='tokenInfo'>
@@ -19,5 +19,5 @@
       <div class=' btn-warning    '>
         <button (click)="goRecipeDetaille(oneRecipe.id_recipe)">RECETTE</button>
       </div>
-    </div>w
+    </div>
   </div>
