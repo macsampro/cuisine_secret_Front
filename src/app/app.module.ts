@@ -13,6 +13,8 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { Page404Component } from './pages/page404/page404.component';
 import { RecipeDetailleComponent } from './component/recipe-detaille/recipe-detaille.component';
 import { PageRecipeComponent } from './pages/page-recipe/page-recipe.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ModifyRecipeComponent } from './pages/modify-recipe/modify-recipe.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,9 @@ import { PageRecipeComponent } from './pages/page-recipe/page-recipe.component';
     Page404Component,
     RecipeDetailleComponent,
     PageRecipeComponent,
+    ModifyRecipeComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule,HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule,HttpClientModule,ReactiveFormsModule,],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
