@@ -19,7 +19,6 @@ export class HomeComponent {
 
   ngOnInit() {
     this.recipesService.getAllRecipes().subscribe((respRecipes) => {
-      console.log(respRecipes);
       this.recipes = respRecipes;
     });
   }

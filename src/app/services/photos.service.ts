@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Photos } from '../models/photos';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { catchError, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 @Injectable({
@@ -56,20 +56,10 @@ export class PhotosService {
 
   getPhotoByRecipeId(recipeId: number): Observable<Blob> {
     const url = `${this.urlApi}/recipes/${recipeId}`;
-    console.log(`Making HTTP request to URL: ${url}`);
 
     return this.http.get<Blob>(url, { responseType: 'blob' as 'json' }).pipe(
-      tap({
-        next: (data) =>
-          console.log(`Received blob response for recipe ID ${recipeId}`),
-        error: (error) =>
-          console.log(`Error getting photo for recipe ID ${recipeId}`, error),
-      }),
       catchError((error) => {
-        // Ici, vous pouvez gérer l'erreur et retourner un Observable qui le reflète
-        console.error('Error caught in catch and handle', error);
         return throwError(() => new Error(error));
-
       })
     );
   }

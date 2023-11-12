@@ -40,12 +40,10 @@ export class CardComponent implements OnInit {
   getRecipeImage(recipeId: number) {
     this.photosService.getPhotoByRecipeId(recipeId).subscribe({
       next: (data: Blob) => {
-        console.log('Data received from getPhotoByRecipeId:', data); //
         if (data.type.startsWith('image/')) {
           // Créer une URL pour l'image et l'affecter à `recipeImg`
           const urlCreator = window.URL || window.webkitURL;
           this.recipeImg = urlCreator.createObjectURL(data);
-          console.log('Image URL created:', this.recipeImg);
         } else {
           // Gérer le cas où la réponse n'est pas une image
           console.error('La réponse n’est pas une image');
