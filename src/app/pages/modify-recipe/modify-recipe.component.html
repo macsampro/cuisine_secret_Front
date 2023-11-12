@@ -1,3 +1,4 @@
+
 <div class="container">
     <h2>Modifier une recette</h2>
     <form [formGroup]="editRecipeForm" (ngSubmit)="onSubmit()">
@@ -56,6 +57,9 @@
             <button type="button" (click)="addStep()">add</button>
         </div> -->
        
+        <div>
+            <app-modal-list-ingredients [oneIngredient]="ingredientsListe"></app-modal-list-ingredients>
+        </div>
 
         <button type="submit" class="btn btn-success">Mettre à jour</button>
         <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>

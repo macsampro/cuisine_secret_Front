@@ -1,0 +1,12 @@
+<dialog #myDialog>
+    <button (click)="closeModalIngredients()" autofocus>Fermer</button>
+    <p>Liste des ingrédients :</p>
+    <ul>
+
+        <li *ngFor="let index of mesIngredient">
+            <input type="checkbox" id="ingredient"><label for="ingredient3">{{index.ingredient_name}}</label>
+        </li>
+        <!-- Ajoutez d'autres cases à cocher selon le besoin -->
+    </ul>
+</dialog>
+<button (click)="openModalIngredients()">Ouvrir la liste des ingrédients</button>

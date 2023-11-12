@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Ingredients } from 'src/app/models/ingredients';
 import { Recipes } from 'src/app/models/recipes';
-import { IngredientsService } from 'src/app/services/ingredients.service';
 import { PreparationStepsService } from 'src/app/services/preparation-steps.service';
 import { RecipesService } from 'src/app/services/recipes.service';
 
@@ -15,13 +15,13 @@ export class ModifyRecipeComponent implements OnInit {
   editRecipeForm!: FormGroup;
   recipe: Recipes[] = [];
   recipeId!: number;
+  ingredientsListe: Ingredients[] = [];
 
 
   constructor(
     private fb: FormBuilder,
     private recipesService: RecipesService, 
     private route: ActivatedRoute,
-    private ingredients: IngredientsService,
     private stepsService: PreparationStepsService
   ) {}
 
