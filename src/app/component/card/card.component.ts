@@ -22,24 +22,43 @@ export class CardComponent implements OnInit {
     private photosService: PhotosService
   ) {}
   ngOnInit() {
-    this.getRecipeImage(this.oneRecipe.id_recipe)
-    
+    if (this.oneRecipe.id_photo && this.oneRecipe.id_photo.length > 0) {
+      this.getRecipeImage(this.oneRecipe.id_recipe);
+    } else {
+      // Aucune photo associée, affiche l'image par défaut
+      this.recipeImg = 'assets/img_erreur /not_img.jpg';
+    }
   }
-  
   goRecipeDetaille(id: number) {
     const myRecipe = this.recipesService.getRecipesById(
       this.oneRecipe.id_recipe
-      );
-      this.router.navigate([`page-recipe/${id}`]);
+    );
+
+    this.router.navigate([`page-recipe/${id}`]);
   }
 
   getRecipeImage(recipeId: number) {
-    this.photosService.getPhotoByRecipeId(recipeId).subscribe((data: Blob) => {
-      this.createImageFromBlob(data);
-      console.log('mon log data',data);
-      
+    this.photosService.getPhotoByRecipeId(recipeId).subscribe({
+      next: (data: Blob) => {
+        console.log('Data received from getPhotoByRecipeId:', data); //
+        if (data.type.startsWith('image/')) {
+          // Créer une URL pour l'image et l'affecter à `recipeImg`
+          const urlCreator = window.URL || window.webkitURL;
+          this.recipeImg = urlCreator.createObjectURL(data);
+          console.log('Image URL created:', this.recipeImg);
+        } else {
+          // Gérer le cas où la réponse n'est pas une image
+          console.error('La réponse n’est pas une image');
+          this.recipeImg = 'assets/img_erreur/not_img.jpg';
+        }
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération de l’image:', error);
+        this.recipeImg = 'assets/img_erreur/not_img.jpg';
+      },
     });
   }
+
   createImageFromBlob(image: Blob) {
     const reader = new FileReader();
     reader.readAsDataURL(image);

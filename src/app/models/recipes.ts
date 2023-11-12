@@ -12,4 +12,5 @@ export interface Recipes {
   id_user: number;
   ingredient:Ingredients[];
   prepararion_step: PreparationSteps[];
+  id_photo?: number[]; 
 }
