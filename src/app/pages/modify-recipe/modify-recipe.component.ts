@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Ingredients } from 'src/app/models/ingredients';
 import { PreparationSteps } from 'src/app/models/preparation-steps';
-import { Recipes } from 'src/app/models/recipes';
-import { PreparationStepsService } from 'src/app/services/preparation-steps.service';
 import { RecipesService } from 'src/app/services/recipes.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modify-recipe',
@@ -20,7 +19,7 @@ export class ModifyRecipeComponent implements OnInit {
     private fb: FormBuilder,
     private recipesService: RecipesService,
     private route: ActivatedRoute,
-    private stepsService: PreparationStepsService
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -40,6 +39,30 @@ export class ModifyRecipeComponent implements OnInit {
     // Chargement des données de la recette pour modification
     this.loadRecipeData();
   }
+
+  // Soumission du formulaire de modification
+  onSubmit(): void {
+    if (this.editRecipeForm.valid) {
+      // Appel de la méthode de service pour mettre à jour la recette
+      this.recipesService
+        .modifyRecipe(this.recipeId, this.editRecipeForm.value)
+        .subscribe({
+          next: (updatedRecipe) => {
+            console.log('Recette mise à jour avec succès', updatedRecipe);
+            //  ici rediriger l'utilisateur vers la page de la recette mise à jour
+            this.router.navigate([`/page-recipe/${updatedRecipe.id_recipe}`]);
+          },
+          error: (error) => {
+            console.error('Erreur lors de la mise à jour de la recette', error);
+            //Afficher un message à l'utilisateur
+            alert('Erreur lors de la mise à jour de la recette');
+          },
+        });
+    }
+  }
+
+  // Annuler les modifications et revenir à la page précédente
+  cancel(): void {}
 
   // Chargement des données de la recette existante dans le formulaire
   loadRecipeData() {
@@ -102,18 +125,5 @@ export class ModifyRecipeComponent implements OnInit {
     (this.editRecipeForm.get('steps') as FormArray).push(
       this.createStepFormGroup()
     );
-  }
-
-  // Soumission du formulaire de modification
-  onSubmit(): void {
-    if (this.editRecipeForm.valid) {
-      // Vous pouvez ici appeler une méthode de service pour mettre à jour la recette
-      console.log(this.editRecipeForm.value);
-    }
-  }
-
-  // Annuler les modifications et revenir à la page précédente
-  cancel(): void {
-    // Implémentez la logique pour annuler les modifications et revenir en arrière
   }
 }
