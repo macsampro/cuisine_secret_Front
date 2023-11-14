@@ -1,21 +1,21 @@
 <div><img src="https://images01.nicepagecdn.com/c461c07a441a5d220e8feb1a/7970258974aa53589f636936/jkjk-min.jpg"
       alt="image de la recette"></div>
-<div>
+<div *ngIf="recipes">
    <div>
-      <h1>Title : {{recipes[0]?.title}}</h1>
-      <p>id_photo : {{recipes[0]?.id_photo[0]?.id_photo}}</p>
+      <h1>Title : {{recipes.title}}</h1>
+      <p>id_photo : {{recipes.id_photo[0]?.id_photo}}</p>
    </div>
    <div>
-      <p>Description : {{recipes[0]?.description}} </p>
-      <p>recipe_type : {{recipes[0]?.recipe_type}}</p>
-      <p>difficulty : {{recipes[0]?.difficulty}}</p>
-      <p>time_preparation : {{recipes[0]?.time_preparation}}</p>
+      <p>Description : {{recipes.description}} </p>
+      <p >recipe_type : {{recipes.recipe_type}}</p>
+      <p>difficulty : {{recipes.difficulty}}</p>
+      <p>time_preparation : {{recipes.time_preparation}} </p>
    </div>
 
    <div>
       <h3>Ingrédients :</h3>
       <ul>
-         <li *ngFor="let ingredient of recipes[0]?.ingredient">
+         <li *ngFor="let ingredient of recipes.ingredient">
             {{ ingredient.ingredient_name }}
          </li>
       </ul>
@@ -23,11 +23,11 @@
 
    <div>
       <h3>Étapes de préparation :</h3>
-      <ul> <!-- Utiliser <ol> pour une liste ordonnée si l'ordre est important -->
-         <li *ngFor="let step of recipes[0]?.preparation_step"> <!-- Assure-toi que le nom de la propriété correspond à ton modèle de données -->
-            Etape {{ step.order_step }}: {{ step.description }}
+      <ol> 
+         <li  *ngFor="let step of recipes.preparation_step">
+            {{ step.description }}
          </li>
-      </ul>
+      </ol>
    </div>
    <div> 
       <button (click)="goPageRecipeModiffy(recipeId)" >modifier ma recette</button> 

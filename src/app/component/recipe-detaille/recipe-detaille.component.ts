@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RecipeDetailleComponent {
   @Input() oneRecipe!: Recipes;
-  recipes: Recipes[] = []; // Un tableau pour stocker les recettes, initialement vide.
+  recipes!: Recipes; // Un tableau pour stocker les recettes, initialement vide.
   recipeId!: number; // Variable pour stocker l'ID de la recette, pas encore définie (! signifie que la valeur sera assignée plus tard).
   
   // Le constructeur initialise les services nécessaires pour le composant.
@@ -28,7 +28,7 @@ export class RecipeDetailleComponent {
     console.log(this.recipeId, 'id logger')
     // Appelle le service pour obtenir une recette par son ID et s'abonne aux changements.
     this.recipesService.getRecipesById(this.recipeId).subscribe((recipe) => {
-      this.recipes = [recipe]; // Une fois la recette obtenue, la stocke dans le tableau des recettes. 
+      this.recipes = recipe; // Une fois la recette obtenue, la stocke dans le tableau des recettes. 
     });
 
     

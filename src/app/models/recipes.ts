@@ -11,6 +11,6 @@ export interface Recipes {
   creation_date: Date;
   id_user: number;
   ingredient:Ingredients[];
-  prepararion_step: PreparationSteps[];
+  preparation_step: PreparationSteps[];
   id_photo?: number[]; 
 }
