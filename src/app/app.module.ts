@@ -16,7 +16,6 @@ import { PageRecipeComponent } from './pages/page-recipe/page-recipe.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModifyRecipeComponent } from './pages/modify-recipe/modify-recipe.component';
 import { ModalListIngredientsComponent } from './modal/modal-list-ingredients/modal-list-ingredients.component';
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -2,6 +2,7 @@ import { Ingredients } from "./ingredients";
 import { PreparationSteps } from "./preparation-steps";
 
 export interface Recipes {
+  steps: any;
   id_recipe: number;
   title: string;
   recipe_type: string;

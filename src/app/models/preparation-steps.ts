@@ -3,4 +3,6 @@ export interface PreparationSteps {
   description: string;
   order_step: number;
   id_recipe: number;
+  isDeleted?: boolean;
+
 }

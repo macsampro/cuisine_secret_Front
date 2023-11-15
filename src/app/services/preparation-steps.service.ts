@@ -4,11 +4,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PreparationStepsService {
   urlApi: string = 'http://localhost:3000/preparation_steps';
-  preparation_steps:PreparationSteps[] = [];
+  preparation_steps: PreparationSteps[] = [];
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('access_token');
@@ -19,11 +19,8 @@ export class PreparationStepsService {
     return headers;
   }
 
+  constructor(private http: HttpClient) {}
 
-  constructor(private http:HttpClient) { }
-
-
-  
   getAllPreparationSteps(): Observable<PreparationSteps[]> {
     return this.http.get<PreparationSteps[]>(`${this.urlApi}`, {
       headers: this.getHeaders(),
@@ -36,33 +33,40 @@ export class PreparationStepsService {
     });
   }
 
-  addPreparationSteps(preparationSteps: PreparationSteps): Observable<PreparationSteps> {
+  addPreparationSteps(
+    preparationSteps: PreparationSteps
+  ): Observable<PreparationSteps> {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('access_token'),
     });
-    return this.http.post<PreparationSteps>(`${this.urlApi}`, preparationSteps, {
-      headers: headers,
-    });
+    return this.http.post<PreparationSteps>(
+      `${this.urlApi}`,
+      preparationSteps,
+      {
+        headers: headers,
+      }
+    );
   }
 
   modifyPreparationSteps(
     id: number,
     updateData: Partial<PreparationSteps>
   ): Observable<Partial<PreparationSteps>> {
-    return this.http.patch<PreparationSteps>(`${this.urlApi}/${id}`, updateData, {
-      headers: this.getHeaders(),
-    });
+    return this.http.patch<PreparationSteps>(
+      `${this.urlApi}/${id}`,
+      updateData,
+      {
+        headers: this.getHeaders(),
+      }
+    );
   }
 
-  deletePreparationSteps(id: number) {
+  deletePreparationStep(id: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('access_token'),
     });
     return this.http.delete(`${this.urlApi}/${id}`, {
-      headers: headers,
+      headers: this.getHeaders(),
     });
   }
-
-
-
 }
