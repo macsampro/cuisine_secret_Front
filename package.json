@@ -22,7 +22,6 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.3.2",
     "jquery": "^3.7.1",
-    "materialize-css": "^1.0.0",
     "pg": "^8.11.3",
     "popper.js": "^1.16.1",
     "reflect-metadata": "^0.1.13",

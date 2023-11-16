@@ -7,7 +7,6 @@ import { PreparationSteps } from 'src/app/models/preparation-steps';
 import { IngredientsService } from 'src/app/services/ingredients.service';
 import { PreparationStepsService } from 'src/app/services/preparation-steps.service';
 import { RecipesService } from 'src/app/services/recipes.service';
-import { forkJoin, of } from 'rxjs';
 
 @Component({
   selector: 'app-modify-recipe',
@@ -151,10 +150,9 @@ export class ModifyRecipeComponent implements OnInit {
     }
   }
   addStep(): void {
-    // console.log(`Tentative de suppression de l'étape avec l'ID: ${stepId}`);
+    // console.log(`Tentative de suppression de l'étape avec l'ID: ${this.stepId}`);
 
     const stepsArray = this.editRecipeForm.get('steps') as FormArray;
-    console.log(stepsArray.length);
 
     stepsArray.push(
       this.createStepFormGroup({
@@ -164,42 +162,51 @@ export class ModifyRecipeComponent implements OnInit {
     );
   }
 
-  // Soumission du formulaire et mise à jour de la recette
+
   onSubmit(): void {
     console.log(
       'Tentative de mise à jour de la recette',
       this.editRecipeForm.value
-    );
+      );
 
-    if (this.editRecipeForm.valid) {
-      const formModel = this.editRecipeForm.value;
+      if (this.editRecipeForm.valid) {
+        const formModel = this.editRecipeForm.value;
 
-      // Filtrer les étapes pour ne conserver que celles qui n'ont pas été marquées comme supprimées
-      /*
-     const stepsToUpdate = (formModel.steps as PreparationSteps[]).filter(
-      (step) => !step.isDeleted
-    );
-    */
+  //       formModel.ingredientsArray.addIngredient();
+  //       formModel.stepsArray.addStep();
 
-      // Appeler le service pour mettre à jour la recette
-      /*
-      this.recipesService
-        .modifyRecipe(this.recipeId, {
-          ...formModel,
-          steps: stepsToUpdate,
-        })
-        .subscribe({
-          next: (updatedRecipe) => {
-            // Après la mise à jour de la recette, rediriger l'utilisateur vers la page de la recette mise à jour
-            this.router.navigate([`/recipe/${updatedRecipe.id_recipe}`]);
-          },
-          error: (error) => {
-            console.error('Erreur lors de la mise à jour de la recette', error);
-          },
-        });
-        */
+  // this.addIngredient();
+  // this.addStep();
+
+  // Filtrer les étapes pour ne conserver que celles qui n'ont pas été marquées comme supprimées
+  /*
+        const stepsToUpdate = (formModel.steps as PreparationSteps[]).filter(
+          (step) => !step.isDeleted
+          );
+          */
+
+  // Appeler le service pour mettre à jour la recette
+  /*
+         this.recipesService
+         .modifyRecipe(this.recipeId, {
+           ...formModel,
+           steps: stepsToUpdate,
+          })
+          .subscribe({
+            next: (updatedRecipe) => {
+              // Après la mise à jour de la recette, rediriger l'utilisateur vers la page de la recette mise à jour
+              this.router.navigate([`/recipe/${updatedRecipe.id_recipe}`]);
+            },
+            error: (error) => {
+              console.error('Erreur lors de la mise à jour de la recette', error);
+            },
+          });
+          */
+
     }
   }
+
+  
   getSteps(): FormArray {
     return this.editRecipeForm.get('steps') as FormArray;
   }
