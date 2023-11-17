@@ -4,9 +4,9 @@
     <ul>
 
         <li *ngFor="let index of mesIngredient">
-            <input type="checkbox" id="ingredient"><label for="ingredient3">{{index.ingredient_name}}</label>
+            <label for="{{index.id_ingredient}}">{{index.ingredient_name}}</label>
+            <input value="{{index.id_ingredient}}" (change)="ajoutMonIngredient($event)" type="checkbox" id="{{index.id_ingredient}}">
         </li>
-        <!-- Ajoutez d'autres cases à cocher selon le besoin -->
     </ul>
 </dialog>
 <button (click)="openModalIngredients()">Ouvrir la liste des ingrédients</button>

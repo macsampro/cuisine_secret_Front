@@ -1,0 +1,85 @@
+<div class="login-container">
+  <form [formGroup]="addUser" (ngSubmit)="onSubmit()" class="form-login">
+    <ul class="login-nav">
+      <li class="login-nav__item">
+        <a href="#">Connexion</a>
+      </li>
+      <li class="login-nav__item active">
+        <a href="#">Inscription</a>
+      </li>
+    </ul>
+
+    <label for="sign-up-input-user" class="login__label">
+      Nom d'utilisateur
+    </label>
+    <input
+      formControlName="username"
+      id="sign-up-input-user"
+      class="login__input"
+      type="text"
+      [ngClass]="{
+        'is-invalid':
+          addUser.get('username')?.touched && addUser.get('username')?.invalid
+      }"
+    />
+
+    <div
+      *ngIf="
+        addUser.get('username')?.touched && addUser.get('username')?.invalid
+      "
+      class="invalid-feedback"
+    >
+      Le pseudo est requis.
+    </div>
+
+    <label for="sign-up-input-email" class="login__label"> Email </label>
+    <input
+      formControlName="email"
+      id="sign-up-input-email"
+      class="login__input"
+      type="email"
+      pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+      [ngClass]="{
+        'is-invalid':
+          addUser.get('email')?.touched && addUser.get('email')?.invalid
+      }"
+    />
+
+    <div
+      *ngIf="addUser.get('email')?.touched && addUser.get('email')?.invalid"
+      class="invalid-feedback"
+    >
+      Format d'adresse e-mail invalide.
+    </div>
+
+    <label for="sign-up-input-password" class="login__label">
+      Mot de passe
+    </label>
+    <input
+      formControlName="password"
+      id="sign-up-input-password"
+      class="login__input"
+      type="password"
+      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
+      [ngClass]="{
+        'is-invalid':
+          addUser.get('password')?.touched &&
+          addUser.get('password')?.invalid
+      }"
+    />
+    <div
+    *ngIf="
+      addUser.get('password')?.touched &&
+      addUser.get('password')?.invalid
+    "
+    class="invalid-feedback"
+  >
+    Le mot de passe doit contenir au moins 8 caractères, une majuscule,
+    une minuscule et un chiffre.
+  </div>
+
+
+
+    <button class="login__submit">S'inscrire</button>
+  </form>
+</div>

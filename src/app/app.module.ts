@@ -16,6 +16,8 @@ import { PageRecipeComponent } from './pages/page-recipe/page-recipe.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModifyRecipeComponent } from './pages/modify-recipe/modify-recipe.component';
 import { ModalListIngredientsComponent } from './modal/modal-list-ingredients/modal-list-ingredients.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +29,8 @@ import { ModalListIngredientsComponent } from './modal/modal-list-ingredients/mo
     PageRecipeComponent,
     ModifyRecipeComponent,
     ModalListIngredientsComponent,
+    LoginPageComponent,
+    SignUpPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule,HttpClientModule,ReactiveFormsModule,],
   providers: [

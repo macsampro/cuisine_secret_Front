@@ -1,12 +1,13 @@
+
 <div class="container">
     <h2>Modifier une recette</h2>
-    <form [formGroup]="editRecipeForm" (ngSubmit)="onSubmit()">
+
+		<form [formGroup]="editRecipeForm" (ngSubmit)="onSubmit()">
         <!-- Titre de la recette -->
         <div class="form-group">
             <label>Titre</label>
             <input formControlName="title" class="form-control" type="text" placeholder="Titre de la recette" />
         </div>
-
         <!-- Description de la recette -->
         <div class="form-group">
             <label>Description</label>
@@ -40,15 +41,16 @@
         <app-modal-list-ingredients></app-modal-list-ingredients>
 
         <!-- Ingrédients de la recette -->
-        <div formArrayName="ingredients">
+        <!-- <div formArrayName="ingredients">
             <h3>Ingrédients</h3>
             <div *ngFor="let ingredientCtrl of editRecipeForm.get('ingredients').controls; let i = index"
                 [formGroupName]="i">
                 <input type="text" formControlName="ingredient_name" class="form-control" />
+                <input type="hidden" formControlName="id_ingredient" class="form-control" />
                 <button type="button" (click)="removeIngredients(i)">Supprimer</button>
             </div>
             <button type="button" (click)="addIngredient()">Ajouter un ingrédient</button>
-        </div>
+        </div> -->
 
         <!-- Étapes de la recette -->
 
