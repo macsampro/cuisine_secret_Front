@@ -1,42 +1,58 @@
-import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { Ingredients } from 'src/app/models/ingredients';
 import { IngredientsService } from 'src/app/services/ingredients.service';
+import { RecipesService } from 'src/app/services/recipes.service';
 
 @Component({
   selector: 'app-modal-list-ingredients',
   templateUrl: './modal-list-ingredients.component.html',
-  styleUrls: ['./modal-list-ingredients.component.css']
+  styleUrls: ['./modal-list-ingredients.component.css'],
 })
 export class ModalListIngredientsComponent {
   @ViewChild('myDialog') dialog!: ElementRef<HTMLDialogElement>;
   @Input() oneIngredient!: Ingredients;
-  mesIngredient:Ingredients[] = []; // Tous les ingrtédients qui existent
-  lesIngredientsDeLaRecette: Ingredients[] = []; // Tous les ingrédients qui sont inclus dans la recette
+  @Input() ingredientsEnregistrer!: Ingredients[]; // Tous les ingrédients qui sont inclus dans la recette
+  @Output() ingredientsSelected = new EventEmitter<Ingredients[]>();
 
-  constructor(private ingredientsService:IngredientsService){}
+  mesIngredient: Ingredients[] = []; // Tous les ingrtédients qui existent
 
-  openModalIngredients(){
+  constructor(
+    private ingredientsService: IngredientsService,
+    private recipeService: RecipesService
+  ) {}
+
+  openModalIngredients() {
     this.dialog.nativeElement.showModal();
-    const mesIngredient = this.ingredientsService.getAllIngredients().subscribe((respIngredient) => {
-      this.mesIngredient = respIngredient;
-      // this.lesIngredientsDeLaRecette = 
-    });    
+    const mesIngredient = this.ingredientsService
+      .getAllIngredients()
+      .subscribe((respIngredient) => {
+        this.mesIngredient = respIngredient;
+        this.ingredientsEnregistrer; // les ingredient present dan la recette
+
+        // this.lesIngredientsDeLaRecette =
+      });
   }
 
-  closeModalIngredients(){
-    // this.dialog.nativeElement.close();
-    console.log('mon loge de mesIngredient = ',this.lesIngredientsDeLaRecette);
-    
-    
-    
+  isIngredientSelected(ingredient: Ingredients): boolean {
+    return this.ingredientsEnregistrer.some(
+      (ingr) => ingr.id_ingredient === ingredient.id_ingredient
+    );
   }
 
-  ajoutMonIngredient(event:any){
+  closeModalIngredients() {
+    this.dialog.nativeElement.close();
+    this.ingredientsSelected.emit(
+      this.mesIngredient.filter(ingredient => 
+          this.isIngredientSelected(ingredient)
+      )
+  );
+  }
+
+  ajoutMonIngredient(event: any) {
     console.log(event.target.value);
 
     // Ici on ajoute dans le tableau des ingredients de ma recette
     // l'ingrédient checké ET retirer les ingrédients décheckés !
     // si l'id récupéré représente un ingrédient déjà dans le tableau on le retire sinon on l'ajoute
   }
-
 }

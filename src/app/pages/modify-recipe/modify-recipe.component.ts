@@ -25,6 +25,13 @@ export class ModifyRecipeComponent implements OnInit {
   recipeId!: number;
   stepsToDelete: number[] = []; // Liste des ID des étapes à supprimer
   recipe!: Recipes;
+  // IngredientsCoche: any;
+  public ingredientsRecus: Ingredients[] = [];
+  public ingredientsSelectionnes: Ingredients[] = [];
+
+
+  // ingredientsArray?:Ingredients;
+  // ingredientsArray?= this.ingredientService.getIngredientsById(this.recipeId);
 
   constructor(
     private recipeService: RecipesService,
@@ -40,6 +47,24 @@ export class ModifyRecipeComponent implements OnInit {
     this.recipeId = +this.route.snapshot.params['id'];
     this.initForm();
     this.loadRecipeData();
+
+   this.recipeService.getRecipesById(this.recipeId).subscribe({
+      next: (ingredient) => {
+        console.log('Ingrédient reçu:', ingredient.ingredient);
+        if (ingredient && ingredient.ingredient) {
+          this.ingredientsRecus = ingredient.ingredient;
+
+        }
+      },
+      error: (err) => {
+        console.error('Erreur:', err);
+      },
+      complete: () => {
+        console.log('Souscription complète');
+      },
+    });
+
+    
   }
   initForm() {
     // Initialisation du formulaire avec des FormArrays pour les ingrédients et les étapes
@@ -84,7 +109,12 @@ export class ModifyRecipeComponent implements OnInit {
         stepsArray.push(this.createStepFormGroup(step));
       });
     });
+    
   }
+
+  onIngredientsSelected(ingredients: Ingredients[]) {
+    this.ingredientsSelectionnes = ingredients;
+}
 
   // Création d'un FormGroup pour un ingrédient
   createIngredientFormGroup(ingredient: Ingredients): FormGroup {
@@ -187,15 +217,14 @@ export class ModifyRecipeComponent implements OnInit {
       let ingredients = this.editRecipeForm.value.ingredients;
       // console.log('log ingredient', ingredients);
       this.recipe.ingredient = ingredients;
-      //faire un output pour renvoyer au click sur fermer 
+      //faire un output pour renvoyer au click sur fermer
       //de la modal des ingrédients les ingrédients checké par le user
 
-      this.recipeService.modifyRecipe(this.recipe.id_recipe, this.recipe).subscribe((recipe) => {
-        // this.router.navigate([`/page-recipe/${this.recipeId}`]);
-
-      });
-       
-      
+      this.recipeService
+        .modifyRecipe(this.recipe.id_recipe, this.recipe)
+        .subscribe((recipe) => {
+          // this.router.navigate([`/page-recipe/${this.recipeId}`]);
+        });
 
       //       formModel.ingredientsArray.addIngredient();
       //       formModel.stepsArray.addStep();

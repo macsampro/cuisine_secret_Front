@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Ingredients } from '../models/ingredients';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Recipes } from '../models/recipes';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,8 @@ export class IngredientsService {
       headers: this.getHeaders(),
     });
   }
+
+
 
   addIngredients(ingredient: Ingredients): Observable<Ingredients> {
     const headers = new HttpHeaders({
