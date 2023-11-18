@@ -60,10 +60,5 @@ export class ModalListIngredientsComponent {
       }
     }
 
-    // console.log(event.target.value);
-
-    // Ici on ajoute dans le tableau des ingredients de ma recette
-    // l'ingrédient checké ET retirer les ingrédients décheckés !
-    // si l'id récupéré représente un ingrédient déjà dans le tableau on le retire sinon on l'ajoute
   }
 }

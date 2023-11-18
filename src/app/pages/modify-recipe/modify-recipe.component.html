@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Modifier une recette</h2>
 
-  <form [formGroup]="editRecipeForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="editRecipeForm" (ngSubmit)="onSubmitRecipe()">
     <!-- Titre de la recette -->
     <div class="form-group">
       <label>Titre</label>
@@ -62,31 +62,6 @@
       </ol>
       <button type="button" (click)="addStep()">Ajouter une étape</button>
     </div>
-
-    <!-- <div formArrayName="steps">
-      <h3>Étapes</h3>
-      <div>
-        <ol>
-          <li
-            *ngFor="let stepCtrl of getSteps().controls; let i = index"
-            [formGroupName]="i"
-          >
-            <input
-              type="text"
-              formControlName="description"
-              class="form-control"
-            />
-            <button type="button" (click)="removeStepFromForm(i)">
-              Supprimer
-            </button>
-          </li>
-        </ol>
-      </div>
-      <button type="button" (click)="addStep()">Ajouter une étape</button>
-    </div> -->
-
-
-
 
 
     <!-- Boutons de soumission et d'annulation -->

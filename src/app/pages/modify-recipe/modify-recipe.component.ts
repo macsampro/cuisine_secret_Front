@@ -1,11 +1,9 @@
-// modify-recipe.component.ts
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   FormArray,
-  FormControl,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ingredients } from 'src/app/models/ingredients';
@@ -25,14 +23,11 @@ export class ModifyRecipeComponent implements OnInit {
   recipeId!: number;
   stepsToDelete: number[] = []; // Liste des ID des étapes à supprimer
   recipe!: Recipes;
-  // IngredientsCoche: any;
   public ingredientsRecus: Ingredients[] = [];
   public ingredientsSelectionnes: Ingredients[] = [];
   public ingredientsActuels: Ingredients[] = [];
 
 
-  // ingredientsArray?:Ingredients;
-  // ingredientsArray?= this.ingredientService.getIngredientsById(this.recipeId);
 
   constructor(
     private recipeService: RecipesService,
@@ -97,16 +92,12 @@ export class ModifyRecipeComponent implements OnInit {
 
       // Ajout des étapes de préparation au FormArray
       const stepsArray = this.editRecipeForm.get('steps') as FormArray;
-      // stepsArray.clear();
 
 
 
       recipe.preparation_step?.forEach((step: PreparationSteps) => {
         this.getSteps().push(this.createStepFormGroup(step));
       });
-      // recipe.preparation_step?.forEach((step: PreparationSteps) => {
-      //   stepsArray.push(this.createStepFormGroup(step));
-      // });
     });
     
   }
@@ -158,24 +149,11 @@ export class ModifyRecipeComponent implements OnInit {
   }
 
   // Ajout d'une étape de préparation
-  removeStepFromForm(index: number): void {  ///////////////////////////////////////////////////////////////////
-    const stepsArray = this.getSteps(); ///////////////////////////////////////////////////////////////////
-    stepsArray.removeAt(index); ///////////////////////////////////////////////////////////////////
-  } ///////////////////////////////////////////////////////////////////
+  removeStepFromForm(index: number): void {  
+    const stepsArray = this.getSteps(); 
+    stepsArray.removeAt(index); 
+  } 
   
-  // removeStepFromForm(index: number): void {
-
-  //   const stepFormGroup = (this.editRecipeForm.get('steps') as FormArray).at(
-  //     index
-  //   ) as FormGroup;
-  //   const stepId = stepFormGroup.get('id_preparation_step')!.value;
-  //   // Si l'étape a un id valide (différent de zéro), on l'ajoute à la liste des étapes à supprimer
-  //   if (stepId && stepId !== 0) {
-  //     this.stepsToDelete.push(stepId);
-  //   }
-  //   // On marque l'étape comme supprimée dans le formulaire
-  //   stepFormGroup.get('isDeleted')!.setValue(true);
-  // }
 
   // Méthode pour supprimer une étape de la base de données
   deleteStep(stepId: number): void {
@@ -208,39 +186,20 @@ export class ModifyRecipeComponent implements OnInit {
     stepsArray.push(this.createStepFormGroup(newStep as PreparationSteps));
   }
     
-  // addStep(): void {
-  //   const stepsArray = this.editRecipeForm.get('steps') as FormArray;
-  //   stepsArray.push(
-  //     this.createStepFormGroup({
-  //       order_step: stepsArray.length + 1,
-  //       id_recipe: this.recipeId,
-  //     } as PreparationSteps)
-  //   );
-  // }
 
 
-onSubmit(): void {
+  onSubmitRecipe(): void {
   if (this.editRecipeForm.valid) {
     this.recipe.ingredient = this.ingredientsActuels;
     this.recipe.preparation_step = this.getSteps().value;
     
     this.recipeService.modifyRecipe(this.recipe.id_recipe, this.recipe).subscribe();
+    
     this.router.navigate([`/page-recipe/${this.recipeId}`]);
 
   }
 }
 
-  // onSubmit(): void {
-  //   if (this.editRecipeForm.valid) {
-  //     let ingredients = this.ingredientsActuels;
-  //     this.recipe.ingredient = ingredients;
-  //     this.recipeService
-  //       .modifyRecipe(this.recipe.id_recipe, this.recipe)
-  //       .subscribe((recipe) => {
-  //       });
-
-  //   }
-  // }
 
   getSteps(): FormArray {
     return this.editRecipeForm.get('steps') as FormArray;
