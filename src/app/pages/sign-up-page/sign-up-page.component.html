@@ -56,21 +56,21 @@
       Mot de passe
     </label>
     <input
-      formControlName="password"
+      formControlName="password_hash"
       id="sign-up-input-password"
       class="login__input"
       type="password"
-      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
+      
       [ngClass]="{
         'is-invalid':
-          addUser.get('password')?.touched &&
-          addUser.get('password')?.invalid
+          addUser.get('password_hash')?.touched &&
+          addUser.get('password_hash')?.invalid
       }"
     />
     <div
     *ngIf="
-      addUser.get('password')?.touched &&
-      addUser.get('password')?.invalid
+      addUser.get('password_hash')?.touched &&
+      addUser.get('password_hash')?.invalid
     "
     class="invalid-feedback"
   >
@@ -83,3 +83,6 @@
     <button class="login__submit">S'inscrire</button>
   </form>
 </div>
+
+
+

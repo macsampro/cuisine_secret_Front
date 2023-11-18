@@ -25,29 +25,35 @@ export class SignUpPageComponent {
     this.addUser = this.formBuilder.group({
       username: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
+      password_hash: new FormControl('', Validators.required),
     });
   }
 
 
   onSubmit() {
-    let newUser: Users = { ...this.addUser.value };
-    if (!this.addUser.valid) {
-      console.log(newUser);
+    if (this.addUser.valid) {
+      const newUser: Users = { ...this.addUser.value };
+      console.log('log this.addUser.valid = ',this.addUser.valid);
+      console.log('log newUser = ',newUser);
+      
 
-      newUser = { ...this.addUser.value };
+      this.userService.addUser(newUser).subscribe({
+        next: () => {
+          alert('Utilisateur ajouté avec succès !');
+          this.addUser.reset();
+          this.router.navigate(['login_page']);
+        },
+        error: (error) => {
+          if (error.status === 409) {
+            alert("Le nom d'utilisateur est déjà pris.");
+          } else {
+            alert("Erreur lors de l'inscription.");
+          }
+        },
+      });
+    } else {
+      alert('Veuillez remplir correctement tous les champs.');
     }
-
-    this.userService.addUser(newUser).subscribe({
-      next: () => {
-        alert('Utilisateur ajouté avec succès !');
-        this.addUser.reset();
-        this.router.navigate(['home']);
-      },
-      error: (error) => {
-        console.error("Erreur lors de l'ajout de l'utilisateur", error);
-      },
-    });
   }
 
   OnAddUser() {
