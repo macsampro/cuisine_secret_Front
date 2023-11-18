@@ -26,6 +26,8 @@ export class ModifyRecipeComponent implements OnInit {
   public ingredientsRecus: Ingredients[] = [];
   public ingredientsSelectionnes: Ingredients[] = [];
   public ingredientsActuels: Ingredients[] = [];
+  // private tempStepId = -1;
+
 
 
 
@@ -177,26 +179,44 @@ export class ModifyRecipeComponent implements OnInit {
   addStep(): void {
     const stepsArray = this.getSteps();
     const newStep = {
-      id_preparation_step: 0,
+      id_preparation_step: length+1,
       description: '',
       order_step: stepsArray.length + 1,
       id_recipe: this.recipeId,
-      isDeleted: false
     };
     stepsArray.push(this.createStepFormGroup(newStep as PreparationSteps));
-  }
+  }    
+
+
+//   onSubmitRecipe(): void {
+//   if (this.editRecipeForm.valid) {
+//     this.recipe.ingredient = this.ingredientsActuels;
+//     this.recipe.preparation_step = this.getSteps().value;
     
+//     this.recipeService.modifyRecipe(this.recipe.id_recipe, this.recipe).subscribe();
+    
+//     this.router.navigate([`/page-recipe/${this.recipeId}`]);
+//     console.log('log de console.log(this.editRecipeForm.value)',this.editRecipeForm.value)
 
-
-  onSubmitRecipe(): void {
+//   }
+// }
+onSubmitRecipe(): void {
   if (this.editRecipeForm.valid) {
-    this.recipe.ingredient = this.ingredientsActuels;
-    this.recipe.preparation_step = this.getSteps().value;
+    // Création d'un objet avec les nouvelles données du formulaire
+    const updatedRecipe = {
+      ...this.recipe,
+      ...this.editRecipeForm.value,
+      ingredient: this.ingredientsActuels, // Ajout des ingrédients mis à jour
+      preparation_step: this.getSteps().value // Ajout des étapes de préparation mises à jour
+      
+    };
     
-    this.recipeService.modifyRecipe(this.recipe.id_recipe, this.recipe).subscribe();
-    
-    this.router.navigate([`/page-recipe/${this.recipeId}`]);
+    console.log('log updatedRecipe = ',updatedRecipe);
+    // Envoi de l'objet mis à jour au service
+    this.recipeService.modifyRecipe(this.recipe.id_recipe, updatedRecipe).subscribe();
 
+    // Redirection
+    // this.router.navigate([`/page-recipe/${this.recipeId}`]);
   }
 }
 
@@ -207,6 +227,21 @@ export class ModifyRecipeComponent implements OnInit {
 
   cancel(): void {
     // Annulation des modifications et redirection
-    this.router.navigate([`/recipe/${this.recipeId}`]);
+    this.router.navigate([`page-recipe/${this.recipeId}`]);
   }
+
+  deleteRecipe(): void {
+    if(confirm("Êtes-vous sûr de vouloir supprimer cette recette ?")) {
+      this.recipeService.deleteRecipe(this.recipeId).subscribe({
+        next: () => {
+          console.log('Recette supprimée avec succès');
+          this.router.navigate(['/home']); // Redirection après suppression
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression:', err);
+        }
+      });
+    }
+  }
+
 }

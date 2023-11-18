@@ -40,6 +40,9 @@
       (ingredientsSelected)="onIngredientsSelected($event)">
     </app-modal-list-ingredients>
 
+
+    
+
     <div *ngIf="ingredientsActuels.length > 0">
       <h3>Ingrédients actuels de la recette :</h3>
       <ul>
@@ -66,8 +69,6 @@
 
     <!-- Boutons de soumission et d'annulation -->
     <button type="submit" class="btn btn-success">Mettre à jour</button>
-    <button type="button" class="btn btn-secondary" (click)="cancel()">
-      Annuler
-    </button>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
   </form>
 </div>

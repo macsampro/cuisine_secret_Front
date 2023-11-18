@@ -22,6 +22,7 @@ export class ModalListIngredientsComponent {
   ) {}
 
   openModalIngredients() {
+    console.log("Ouverture de la modale des ingrédients");
     this.dialog.nativeElement.showModal();
     const mesIngredient = this.ingredientsService
       .getAllIngredients()
