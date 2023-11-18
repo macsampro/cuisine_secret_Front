@@ -7,13 +7,12 @@ import { UsersService } from 'src/app/services/users.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
   username!: string;
   password_hash!: string;
   connexion!: FormGroup;
-
 
   constructor(
     private userService: UsersService,
@@ -25,7 +24,7 @@ export class LoginPageComponent {
   ngOnInit(): void {
     this.initialForm();
   }
-  
+
   private initialForm() {
     this.connexion = this.fb.group({
       username: ['', Validators.required],
@@ -45,9 +44,10 @@ export class LoginPageComponent {
             localStorage.setItem('access_token', response.accessToken);
 
             console.log('Connexion réussie et token stocké!');
-            this.router.navigate(['/accueil']);
+            this.router.navigate(['home']);
           } else {
-            console.error('Token non reçu dans la réponse.');
+            // Gestion d'erreur : afficher un message à l'utilisateur
+            console.error('Formulaire invalide');
           }
         },
         error: (error: any) => {
@@ -56,6 +56,4 @@ export class LoginPageComponent {
       });
     }
   }
-
-
 }

@@ -18,7 +18,7 @@
     <input formControlName="username" id="login-input-user" class="login__input" type="text" />
 
     <label for="login-input-password" class="login__label"> Mot de passe </label>
-    <input formControlName="password" id="login-input-password" class="login__input" type="password" />
+    <input formControlName="password_hash" id="login-input-password" class="login__input" type="password" />
 
     <button type="submit" class="login__submit" [disabled]="!connexion.valid">Se connecter</button>
 
