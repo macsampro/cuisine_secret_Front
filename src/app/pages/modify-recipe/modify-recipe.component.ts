@@ -94,22 +94,19 @@ export class ModifyRecipeComponent implements OnInit {
         difficulty: recipe.difficulty,
       });
 
-      // Ajout des ingrédients au FormArray
-      // const ingredientsArray = this.editRecipeForm.get(
-      //   'ingredients'
-      // ) as FormArray;
-      // // ingredientsArray.clear();
-      // recipe.ingredient?.forEach((ingredient: Ingredients) => {
-      //   ingredientsArray.push(this.createIngredientFormGroup(ingredient));
-      //   // ingredientsArray.push(this.fb.control(ingredient));
-      // });
 
       // Ajout des étapes de préparation au FormArray
       const stepsArray = this.editRecipeForm.get('steps') as FormArray;
       // stepsArray.clear();
+
+
+
       recipe.preparation_step?.forEach((step: PreparationSteps) => {
-        stepsArray.push(this.createStepFormGroup(step));
+        this.getSteps().push(this.createStepFormGroup(step));
       });
+      // recipe.preparation_step?.forEach((step: PreparationSteps) => {
+      //   stepsArray.push(this.createStepFormGroup(step));
+      // });
     });
     
   }
@@ -161,21 +158,24 @@ export class ModifyRecipeComponent implements OnInit {
   }
 
   // Ajout d'une étape de préparation
+  removeStepFromForm(index: number): void {  ///////////////////////////////////////////////////////////////////
+    const stepsArray = this.getSteps(); ///////////////////////////////////////////////////////////////////
+    stepsArray.removeAt(index); ///////////////////////////////////////////////////////////////////
+  } ///////////////////////////////////////////////////////////////////
+  
+  // removeStepFromForm(index: number): void {
 
-  removeStepFromForm(index: number): void {
-    console.log(`Tentative de suppression de l'étape à l'index: ${index}`);
-
-    const stepFormGroup = (this.editRecipeForm.get('steps') as FormArray).at(
-      index
-    ) as FormGroup;
-    const stepId = stepFormGroup.get('id_preparation_step')!.value;
-    // Si l'étape a un id valide (différent de zéro), on l'ajoute à la liste des étapes à supprimer
-    if (stepId && stepId !== 0) {
-      this.stepsToDelete.push(stepId);
-    }
-    // On marque l'étape comme supprimée dans le formulaire
-    stepFormGroup.get('isDeleted')!.setValue(true);
-  }
+  //   const stepFormGroup = (this.editRecipeForm.get('steps') as FormArray).at(
+  //     index
+  //   ) as FormGroup;
+  //   const stepId = stepFormGroup.get('id_preparation_step')!.value;
+  //   // Si l'étape a un id valide (différent de zéro), on l'ajoute à la liste des étapes à supprimer
+  //   if (stepId && stepId !== 0) {
+  //     this.stepsToDelete.push(stepId);
+  //   }
+  //   // On marque l'étape comme supprimée dans le formulaire
+  //   stepFormGroup.get('isDeleted')!.setValue(true);
+  // }
 
   // Méthode pour supprimer une étape de la base de données
   deleteStep(stepId: number): void {
@@ -195,70 +195,52 @@ export class ModifyRecipeComponent implements OnInit {
       });
     }
   }
+
   addStep(): void {
-    // console.log(`Tentative de suppression de l'étape avec l'ID: ${this.stepId}`);
-
-    const stepsArray = this.editRecipeForm.get('steps') as FormArray;
-
-    stepsArray.push(
-      this.createStepFormGroup({
-        order_step: stepsArray.length + 1,
-        id_recipe: this.recipeId,
-      } as PreparationSteps)
-    );
+    const stepsArray = this.getSteps();
+    const newStep = {
+      id_preparation_step: 0,
+      description: '',
+      order_step: stepsArray.length + 1,
+      id_recipe: this.recipeId,
+      isDeleted: false
+    };
+    stepsArray.push(this.createStepFormGroup(newStep as PreparationSteps));
   }
+    
+  // addStep(): void {
+  //   const stepsArray = this.editRecipeForm.get('steps') as FormArray;
+  //   stepsArray.push(
+  //     this.createStepFormGroup({
+  //       order_step: stepsArray.length + 1,
+  //       id_recipe: this.recipeId,
+  //     } as PreparationSteps)
+  //   );
+  // }
 
-  onSubmit(): void {
-    console.log(
-      'Tentative de mise à jour de la recette',
-      this.editRecipeForm.value
-    );
-    console.log('la model recipe', this.recipe);
 
-    if (this.editRecipeForm.valid) {
-      let ingredients = this.ingredientsActuels;
-      this.recipe.ingredient = ingredients;
-      //faire un output pour renvoyer au click sur fermer
-      //de la modal des ingrédients les ingrédients checké par le user
+onSubmit(): void {
+  if (this.editRecipeForm.valid) {
+    this.recipe.ingredient = this.ingredientsActuels;
+    this.recipe.preparation_step = this.getSteps().value;
+    
+    this.recipeService.modifyRecipe(this.recipe.id_recipe, this.recipe).subscribe();
+    this.router.navigate([`/page-recipe/${this.recipeId}`]);
 
-      this.recipeService
-        .modifyRecipe(this.recipe.id_recipe, this.recipe)
-        .subscribe((recipe) => {
-          // this.router.navigate([`/page-recipe/${this.recipeId}`]);
-        });
-
-      //       formModel.ingredientsArray.addIngredient();
-      //       formModel.stepsArray.addStep();
-
-      // this.addIngredient();
-      // this.addStep();
-
-      // Filtrer les étapes pour ne conserver que celles qui n'ont pas été marquées comme supprimées
-      /*
-          const stepsToUpdate = (formModel.steps as PreparationSteps[]).filter(
-            (step) => !step.isDeleted
-            );
-            */
-
-      // Appeler le service pour mettre à jour la recette
-      /*
-           this.recipesService
-           .modifyRecipe(this.recipeId, {
-             ...formModel,
-             steps: stepsToUpdate,
-            })
-            .subscribe({
-              next: (updatedRecipe) => {
-                // Après la mise à jour de la recette, rediriger l'utilisateur vers la page de la recette mise à jour
-                this.router.navigate([`/recipe/${updatedRecipe.id_recipe}`]);
-              },
-              error: (error) => {
-                console.error('Erreur lors de la mise à jour de la recette', error);
-              },
-            });
-            */
-    }
   }
+}
+
+  // onSubmit(): void {
+  //   if (this.editRecipeForm.valid) {
+  //     let ingredients = this.ingredientsActuels;
+  //     this.recipe.ingredient = ingredients;
+  //     this.recipeService
+  //       .modifyRecipe(this.recipe.id_recipe, this.recipe)
+  //       .subscribe((recipe) => {
+  //       });
+
+  //   }
+  // }
 
   getSteps(): FormArray {
     return this.editRecipeForm.get('steps') as FormArray;

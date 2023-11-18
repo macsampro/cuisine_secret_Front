@@ -5,42 +5,24 @@
     <!-- Titre de la recette -->
     <div class="form-group">
       <label>Titre</label>
-      <input
-        formControlName="title"
-        class="form-control"
-        type="text"
-        placeholder="Titre de la recette"
-      />
+      <input formControlName="title" class="form-control" type="text" placeholder="Titre de la recette" />
     </div>
     <!-- Description de la recette -->
     <div class="form-group">
       <label>Description</label>
-      <input
-        formControlName="description"
-        class="form-control"
-        placeholder="Description de la recette"
-      />
+      <input formControlName="description" class="form-control" placeholder="Description de la recette" />
     </div>
 
     <!-- Type de recette -->
     <div class="form-group">
       <label>Type de recette</label>
-      <input
-        formControlName="recipe_type"
-        class="form-control"
-        placeholder="Type de recette"
-      />
+      <input formControlName="recipe_type" class="form-control" placeholder="Type de recette" />
     </div>
 
     <!-- Temps de préparation -->
     <div class="form-group">
       <label>Temps de préparation</label>
-      <input
-        formControlName="time_preparation"
-        class="form-control"
-        type="time"
-        placeholder="Temps de préparation"
-      />
+      <input formControlName="time_preparation" class="form-control" type="time" placeholder="Temps de préparation" />
     </div>
 
     <!-- Difficulté de la recette -->
@@ -54,42 +36,36 @@
       </select>
     </div>
 
-    <app-modal-list-ingredients
-      [ingredientsEnregistrer]="ingredientsRecus"
-      (ingredientsSelected)="onIngredientsSelected($event)"
-    >
+    <app-modal-list-ingredients [ingredientsEnregistrer]="ingredientsRecus"
+      (ingredientsSelected)="onIngredientsSelected($event)">
     </app-modal-list-ingredients>
 
     <div *ngIf="ingredientsActuels.length > 0">
-        <h3>Ingrédients actuels de la recette :</h3>
-        <ul>
-            <li *ngFor="let ingredient of ingredientsActuels">
-                {{ ingredient.ingredient_name }}
-            </li>
-        </ul>
+      <h3>Ingrédients actuels de la recette :</h3>
+      <ul>
+        <li *ngFor="let ingredient of ingredientsActuels">
+          {{ ingredient.ingredient_name }}
+        </li>
+      </ul>
     </div>
 
-    <!-- Ingrédients de la recette -->
-    <!-- <div formArrayName="ingredients">
-            <h3>Ingrédients</h3>
-            <div *ngFor="let ingredientCtrl of editRecipeForm.get('ingredients').controls; let i = index"
-                [formGroupName]="i">
-                <input type="text" formControlName="ingredient_name" class="form-control" />
-                <input type="hidden" formControlName="id_ingredient" class="form-control" />
-                <button type="button" (click)="removeIngredients(i)">Supprimer</button>
-            </div>
-            <button type="button" (click)="addIngredient()">Ajouter un ingrédient</button>
-        </div> -->
 
-    <!-- Étapes de la recette -->
+
 
     <div formArrayName="steps">
       <h3>Étapes</h3>
-      <div>
-        <!-- <div class="step-order">
-                    <input type="text" formControlName="order_step" class="form-control" readonly [value]="i + 1">
-                </div> -->
+      <ol>
+        <li *ngFor="let stepCtrl of getSteps().controls; let i = index" [formGroupName]="i">
+          <input type="text" formControlName="description" class="form-control" />
+          <button type="button" (click)="removeStepFromForm(i)">Supprimer</button>
+        </li>
+      </ol>
+      <button type="button" (click)="addStep()">Ajouter une étape</button>
+    </div>
 
+    <!-- <div formArrayName="steps">
+      <h3>Étapes</h3>
+      <div>
         <ol>
           <li
             *ngFor="let stepCtrl of getSteps().controls; let i = index"
@@ -107,7 +83,11 @@
         </ol>
       </div>
       <button type="button" (click)="addStep()">Ajouter une étape</button>
-    </div>
+    </div> -->
+
+
+
+
 
     <!-- Boutons de soumission et d'annulation -->
     <button type="submit" class="btn btn-success">Mettre à jour</button>
