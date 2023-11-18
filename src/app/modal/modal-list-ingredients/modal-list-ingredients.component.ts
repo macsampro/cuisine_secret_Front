@@ -48,8 +48,19 @@ export class ModalListIngredientsComponent {
   );
   }
 
-  ajoutMonIngredient(event: any) {
-    console.log(event.target.value);
+    
+
+  ajoutMonIngredient(event: any, ingredient: Ingredients) {
+    if (event.target.checked) {
+      this.ingredientsEnregistrer.push(ingredient);
+    } else {
+      const index = this.ingredientsEnregistrer.findIndex(ing => ing.id_ingredient === ingredient.id_ingredient);
+      if (index > -1) {
+        this.ingredientsEnregistrer.splice(index, 1);
+      }
+    }
+
+    // console.log(event.target.value);
 
     // Ici on ajoute dans le tableau des ingredients de ma recette
     // l'ingrédient checké ET retirer les ingrédients décheckés !

@@ -28,6 +28,7 @@ export class ModifyRecipeComponent implements OnInit {
   // IngredientsCoche: any;
   public ingredientsRecus: Ingredients[] = [];
   public ingredientsSelectionnes: Ingredients[] = [];
+  public ingredientsActuels: Ingredients[] = [];
 
 
   // ingredientsArray?:Ingredients;
@@ -83,6 +84,7 @@ export class ModifyRecipeComponent implements OnInit {
   loadRecipeData() {
     this.recipesService.getRecipesById(this.recipeId).subscribe((recipe) => {
       this.recipe = recipe;
+      this.ingredientsActuels = recipe.ingredient;
       // Mise à jour du formulaire avec les données de la recette
       this.editRecipeForm.patchValue({
         title: recipe.title,
@@ -93,14 +95,14 @@ export class ModifyRecipeComponent implements OnInit {
       });
 
       // Ajout des ingrédients au FormArray
-      const ingredientsArray = this.editRecipeForm.get(
-        'ingredients'
-      ) as FormArray;
-      // ingredientsArray.clear();
-      recipe.ingredient?.forEach((ingredient: Ingredients) => {
-        ingredientsArray.push(this.createIngredientFormGroup(ingredient));
-        // ingredientsArray.push(this.fb.control(ingredient));
-      });
+      // const ingredientsArray = this.editRecipeForm.get(
+      //   'ingredients'
+      // ) as FormArray;
+      // // ingredientsArray.clear();
+      // recipe.ingredient?.forEach((ingredient: Ingredients) => {
+      //   ingredientsArray.push(this.createIngredientFormGroup(ingredient));
+      //   // ingredientsArray.push(this.fb.control(ingredient));
+      // });
 
       // Ajout des étapes de préparation au FormArray
       const stepsArray = this.editRecipeForm.get('steps') as FormArray;
@@ -113,7 +115,7 @@ export class ModifyRecipeComponent implements OnInit {
   }
 
   onIngredientsSelected(ingredients: Ingredients[]) {
-    this.ingredientsSelectionnes = ingredients;
+    this.ingredientsActuels = ingredients;
 }
 
   // Création d'un FormGroup pour un ingrédient
@@ -214,8 +216,7 @@ export class ModifyRecipeComponent implements OnInit {
     console.log('la model recipe', this.recipe);
 
     if (this.editRecipeForm.valid) {
-      let ingredients = this.editRecipeForm.value.ingredients;
-      // console.log('log ingredient', ingredients);
+      let ingredients = this.ingredientsActuels;
       this.recipe.ingredient = ingredients;
       //faire un output pour renvoyer au click sur fermer
       //de la modal des ingrédients les ingrédients checké par le user

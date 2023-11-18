@@ -60,15 +60,14 @@
     >
     </app-modal-list-ingredients>
 
-    <div *ngIf="ingredientsSelectionnes.length > 0">
-        <h3>Ingrédients sélectionnés :</h3>
+    <div *ngIf="ingredientsActuels.length > 0">
+        <h3>Ingrédients actuels de la recette :</h3>
         <ul>
-            <li *ngFor="let ingredient of ingredientsSelectionnes">
+            <li *ngFor="let ingredient of ingredientsActuels">
                 {{ ingredient.ingredient_name }}
             </li>
         </ul>
     </div>
-
 
     <!-- Ingrédients de la recette -->
     <!-- <div formArrayName="ingredients">
