@@ -7,6 +7,12 @@ import { Login } from '../models/login';
   providedIn: 'root'
 })
 export class LoginService {
+ logout() {
+   throw new Error('Method not implemented.');
+ }
+ isLoggedIn() {
+   throw new Error('Method not implemented.');
+ }
  private urlApi = 'http://localhost:3000/auth';
 
  isConnected: boolean = false;
