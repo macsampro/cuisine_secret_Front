@@ -55,11 +55,11 @@ body {
 	display: inline-block;
 }
 
-.login-nav__item + .login-nav__item {
+.login-nav__item + .login-nav__item{
 	margin-left: 2.25rem;
 }
 
-.login-nav__item a {
+.login-nav__item a .btngo{
 	position: relative;
 	color: rgba(255, 255, 255, 0.5);
 	text-decoration: none;

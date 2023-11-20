@@ -56,4 +56,12 @@ export class LoginPageComponent {
       });
     }
   }
+
+  goSignUp(){
+    this.router.navigate(['sign_up']);
+
+  }
+
 }
+
+
