@@ -1,47 +1,31 @@
-import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Ingredients } from 'src/app/models/ingredients';
-import { PreparationSteps } from 'src/app/models/preparation-steps';
 import { Recipes } from 'src/app/models/recipes';
-import { IngredientsService } from 'src/app/services/ingredients.service';
-import { PreparationStepsService } from 'src/app/services/preparation-steps.service';
 import { RecipesService } from 'src/app/services/recipes.service';
-import { Location } from '@angular/common';
-
+import { UsersService } from 'src/app/services/users.service';
+import { RecipeType } from 'src/app/models/recipe-type';
 
 @Component({
   selector: 'app-new-recipe',
   templateUrl: './new-recipe.component.html',
-  styleUrls: ['./new-recipe.component.css']
+  styleUrls: ['./new-recipe.component.css'],
 })
-export class NewRecipeComponent {
-  editRecipeForm!: FormGroup;
-  recipe!: Recipes;
-  public ingredientsSelectionnes: Ingredients[] = [];
-  public ingredientsActuels: Ingredients[] = [];
+export class NewRecipeComponent implements OnInit {
+  newRecipeForm: FormGroup;
+  selectedIngredients: Ingredients[] = [];
+  recipeTypes: RecipeType[] = [];
+
+
 
   constructor(
-    private recipeService: RecipesService,
     private fb: FormBuilder,
-    private recipesService: RecipesService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private ingredientService: IngredientsService,
-    private stepService: PreparationStepsService,
-    private location: Location
-
-  ) {}
-
-  ngOnInit(){
-    this.initForm();
-
-
-  }
-
-  initForm() {
-    // Initialisation du formulaire avec des FormArrays pour les ingrédients et les étapes
-    this.editRecipeForm = this.fb.group({
+    private recipeService: RecipesService,
+    private userService: UsersService,
+    private router: Router
+  ) {
+    this.newRecipeForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
       recipe_type: ['', Validators.required],
@@ -52,87 +36,84 @@ export class NewRecipeComponent {
     });
   }
 
-  onIngredientsSelected(ingredients: Ingredients[]) {
-    this.ingredientsActuels = ingredients;
-}
+  ngOnInit(): void {
+    this.loadRecipeTypes();
+    // console.log(this.loadRecipeTypes);
+    
 
-createIngredientFormGroup(ingredient: Ingredients): FormGroup {
-  return this.fb.group({
-    ingredient_name: [ingredient.ingredient_name, Validators.required],
-    id_ingredient: [ingredient.id_ingredient, Validators.required],
-  });
-}
+  }
+//recupeter les type de recettes
+  private loadRecipeTypes(): void {
+    this.recipeService.getRecipeTypes().subscribe(
+      (types) => {
+        this.recipeTypes = types;
+      },
+      (error) => {
+        console.error('Error loading recipe types:', error);
+      }
+    );
+  }
 
-  // Création d'un FormGroup pour une étape de préparation
-  createStepFormGroup(step: PreparationSteps): FormGroup {
-    return this.fb.group({
-      id_preparation_step: [step.id_preparation_step],
-      description: [step.description, Validators.required],
-      order_step: [step.order_step],
-      id_recipe: [step.id_recipe],
-      isDeleted: [false], // Initialisation à false
+
+  // Méthode pour ajouter les ingrédients sélectionnés au FormArray
+  onIngredientsSelected(ingredients: Ingredients[]): void {
+    this.selectedIngredients = ingredients;
+
+    const ingredientsFormArray = this.newRecipeForm.get('ingredients') as FormArray;
+    ingredientsFormArray.clear();
+    ingredients.forEach((ingredient) => {
+      ingredientsFormArray.push(this.fb.group({
+        id_ingredient: [ingredient.id_ingredient, Validators.required],
+        ingredient_name: [ingredient.ingredient_name, Validators.required],
+      }));
     });
+    
   }
 
-    // Ajout d'un ingrédient
-    addIngredient(): void {
-      const ingredientsArray = this.editRecipeForm.get(
-        'ingredients'
-      ) as FormArray;
-      ingredientsArray.push(
-        this.createIngredientFormGroup({
-          ingredient_name: '',
-          id_ingredient: -1,
-        } as Ingredients)
-      );
-    }
-  
-  // Ajout d'une étape de préparation
-  removeStepFromForm(index: number): void {  
-    const stepsArray = this.getSteps(); 
-    stepsArray.removeAt(index); 
-  } 
-
+  // Méthode pour ajouter une étape de préparation au FormArray
   addStep(): void {
-    const stepsArray = this.getSteps();
-    const newStep = {
-      id_preparation_step: length+1,
-      description: '',
-      order_step: stepsArray.length + 1,
-      id_recipe: this.recipe.id_recipe,
-    };
-    stepsArray.push(this.createStepFormGroup(newStep as PreparationSteps));
-  }    
+    const stepsFormArray = this.newRecipeForm.get('steps') as FormArray;
+    stepsFormArray.push(this.fb.group({
+      description: ['', Validators.required],
+      order_step: [stepsFormArray.length + 1] // L'ordre est défini automatiquement
+    }));
+  }
 
+  // Méthode pour retirer une étape de préparation du FormArray
+  removeStep(index: number): void {
+    const stepsFormArray = this.newRecipeForm.get('steps') as FormArray;
+    stepsFormArray.removeAt(index);
+  }
 
-  onSubmitRecipe(): void {
-    if (this.editRecipeForm.valid) {
-      // Création d'un objet avec les nouvelles données du formulaire
-      const createRecipe = {
-        ...this.recipe,
-        ...this.editRecipeForm.value,
-        ingredient: this.ingredientsActuels, // Ajout des ingrédients mis à jour
-        preparation_step: this.getSteps().value // Ajout des étapes de préparation mises à jour
-        
+  // Méthode pour soumettre le formulaire
+  onSubmit(): void {
+    if (this.newRecipeForm.valid) {
+      const formValue = this.newRecipeForm.value;
+      const newRecipe: Partial<Recipes> = {
+        title: formValue.title,
+        recipe_type: formValue.recipe_type,
+        description: formValue.description,
+        time_preparation: formValue.time_preparation,
+        difficulty: formValue.difficulty,
+        ingredient: formValue.ingredients.map((ing: any) => ing.id_ingredient),
+        preparation_step: formValue.steps
       };
-      
-      console.log('log createRecipe = ',createRecipe);
-      // Envoi de l'objet mis à jour au service
-      this.recipeService.modifyRecipe(this.recipe.id_recipe, createRecipe).subscribe();
-  
-      // Redirection
-      // this.router.navigate([`/page-recipe/${this.recipeId}`]);
+
+      // Ajout de l'ID de l'utilisateur connecté
+      newRecipe.id_user = this.userService.getUserConnected();
+
+      this.recipeService.addRecipe(newRecipe as Recipes).subscribe({
+        next: (recipe) => {
+          this.router.navigate(['home']); // Navigation vers la page d'accueil après la création
+        },
+        error: (error) => {
+          console.error('Error creating recipe:', error);
+        },
+      });
     }
   }
-  
-  
-    getSteps(): FormArray {
-      return this.editRecipeForm.get('steps') as FormArray;
-    }
-  
-    goBack(): void {
-      this.location.back();
-    }
-  
-  
+
+  cancel(): void {
+    this.router.navigate(['/home']); // Navigation vers la page d'accueil en cas d'annulation
+  }
 }

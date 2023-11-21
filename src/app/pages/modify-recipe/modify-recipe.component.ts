@@ -216,7 +216,7 @@ onSubmitRecipe(): void {
     this.recipeService.modifyRecipe(this.recipe.id_recipe, updatedRecipe).subscribe();
 
     // Redirection
-    // this.router.navigate([`/page-recipe/${this.recipeId}`]);
+    this.router.navigate([`/page-recipe/${this.recipeId}`]);
   }
 }
 

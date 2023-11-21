@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Recipes } from '../models/recipes';
+import { RecipeType } from '../models/recipe-type';
 
 @Injectable({
   providedIn: 'root',
@@ -56,4 +57,11 @@ export class RecipesService {
       headers: this.getHeaders(),
     });
   }
+
+  // Méthode pour récupérer les types de recettes
+getRecipeTypes(): Observable<RecipeType[]> {
+  return this.http.get<RecipeType[]>(`${this.urlApi}/types`, {
+    headers: this.getHeaders(),
+  });
+}
 }

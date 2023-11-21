@@ -1,74 +1,77 @@
 <div class="container">
-    <h2>Ajouter une recette</h2>
-  
-    <form [formGroup]="editRecipeForm" (ngSubmit)="onSubmitRecipe()">
-      <!-- Titre de la recette -->
-      <div class="form-group">
-        <label>Titre</label>
-        <input formControlName="title" class="form-control" type="text" placeholder="Titre de la recette" />
+  <h2>Créer une nouvelle recette</h2>
+  <form [formGroup]="newRecipeForm" (ngSubmit)="onSubmit()">
+
+
+    <div class="form-group">
+      <label for="title">Titre</label>
+      <input formControlName="title" id="title" class="form-control" type="text"
+        placeholder="Entrez le titre de la recette">
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <input formControlName="description" class="form-control" placeholder="Description de la recette" />
+    </div>
+
+    <!-- Dans new-recipe.component.html -->
+
+
+   
+    <div class="form-group">
+      <label>Type de recette</label>
+      <select formControlName="recipe_type" class="form-control">
+        <option value="">Sélectionner le type de recette</option>
+        <option *ngFor="let type of recipeTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+
+
+
+    <div class="form-group">
+      <label>Temps de préparation</label>
+      <input formControlName="time_preparation" class="form-control" type="time" placeholder="Temps de préparation" />
+    </div>
+
+    <div class="form-group">
+      <label>Difficulté</label>
+      <select formControlName="difficulty" class="form-control">
+        <option value="">Sélectionner la difficulté</option>
+        <option value="facile">Facile</option>
+        <option value="intermédiaire">Intermédiaire</option>
+        <option value="difficile">Difficile</option>
+      </select>
+    </div>
+
+    <app-modal-list-ingredients [ingredientsEnregistrer]="ingredientsRecus"
+      (ingredientsSelected)="onIngredientsSelected($event)">
+    </app-modal-list-ingredients>
+
+    <div *ngIf="selectedIngredients.length > 0">
+      <h3>Ingrédients actuels de la recette :</h3>
+      <ul>
+        <li *ngFor="let ingredient of selectedIngredients">
+          {{ ingredient.ingredient_name }}
+        </li>
+      </ul>
+    </div>
+
+
+
+    <div formArrayName="steps">
+      <h3>Étapes de préparation</h3>
+      <div *ngFor="let step of newRecipeForm.controls.steps.controls; let i = index" [formGroupName]="i">
+        <div class="form-group">
+          <label for="description-{{i}}">Description</label>
+          <textarea formControlName="description" id="description-{{i}}" class="form-control"></textarea>
+        </div>
+        <button type="button" class="btn btn-danger" (click)="removeStep(i)">Supprimer l'étape</button>
       </div>
-      <!-- Description de la recette -->
-      <div class="form-group">
-        <label>Description</label>
-        <input formControlName="description" class="form-control" placeholder="Description de la recette" />
-      </div>
-  
-      <!-- Type de recette -->
-      <div class="form-group">
-        <label>Type de recette</label>
-        <input formControlName="recipe_type" class="form-control" placeholder="Type de recette" />
-      </div>
-  
-      <!-- Temps de préparation -->
-      <div class="form-group">
-        <label>Temps de préparation</label>
-        <input formControlName="time_preparation" class="form-control" type="time" placeholder="Temps de préparation" />
-      </div>
-  
-      <!-- Difficulté de la recette -->
-      <div class="form-group">
-        <label>Difficulté</label>
-        <select formControlName="difficulty" class="form-control">
-          <option value="">Sélectionner la difficulté</option>
-          <option value="facile">Facile</option>
-          <option value="intermédiaire">Intermédiaire</option>
-          <option value="difficile">Difficile</option>
-        </select>
-      </div>
-  
-      <app-modal-list-ingredients [ingredientsEnregistrer]="ingredientsRecus"
-        (ingredientsSelected)="onIngredientsSelected($event)">
-      </app-modal-list-ingredients>
-  
-  
-      
-  
-      <div *ngIf="ingredientsActuels.length > 0">
-        <h3>Ingrédients actuels de la recette :</h3>
-        <ul>
-          <li *ngFor="let ingredient of ingredientsActuels">
-            {{ ingredient.ingredient_name }}
-          </li>
-        </ul>
-      </div>
-  
-  
-  
-  
-      <div formArrayName="steps">
-        <h3>Étapes</h3>
-        <ol>
-          <li *ngFor="let stepCtrl of getSteps().controls; let i = index" [formGroupName]="i">
-            <input type="text" formControlName="description" class="form-control" />
-            <button type="button" (click)="removeStepFromForm(i)">Supprimer</button>
-          </li>
-        </ol>
-        <button type="button" (click)="addStep()">Ajouter une étape</button>
-      </div>
-  
-  
-      <!-- Boutons de soumission et d'annulation -->
-      <button type="submit" class="btn btn-success">Mettre à jour</button>
-      <button type="button" class="btn btn-secondary" (click)="goBack()">Annuler</button>
-    </form>
-  </div>
+      <button type="button" class="btn btn-primary" (click)="addStep()">Ajouter une étape</button>
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Créer la recette</button>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+  </form>
+</div>

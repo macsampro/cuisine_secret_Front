@@ -1,5 +1,5 @@
 <dialog #myDialog>
-    <button (click)="closeModalIngredients()" autofocus>valider</button>
+    <button (click)="closeModalIngredients()" type="button" autofocus>valider</button>
     <p>Liste des ingrédients :</p>
     <ul>
         <li *ngFor="let ingredient of mesIngredient">
@@ -11,7 +11,7 @@
         </li>
     </ul>
 </dialog>
-<button [type]="button" (click)="openModalIngredients()">
+<button (click)="openModalIngredients()" type="button">
     Ouvrir la liste des ingrédients
 </button>
 
