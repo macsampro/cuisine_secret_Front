@@ -17,8 +17,6 @@ export class NewRecipeComponent implements OnInit {
   selectedIngredients: Ingredients[] = [];
   recipeTypes: RecipeType[] = [];
 
-
-
   constructor(
     private fb: FormBuilder,
     private recipeService: RecipesService,
@@ -39,10 +37,8 @@ export class NewRecipeComponent implements OnInit {
   ngOnInit(): void {
     this.loadRecipeTypes();
     // console.log(this.loadRecipeTypes);
-    
-
   }
-//recupeter les type de recettes
+  //recupeter les type de recettes
   private loadRecipeTypes(): void {
     this.recipeService.getRecipeTypes().subscribe(
       (types) => {
@@ -54,29 +50,33 @@ export class NewRecipeComponent implements OnInit {
     );
   }
 
-
   // Méthode pour ajouter les ingrédients sélectionnés au FormArray
   onIngredientsSelected(ingredients: Ingredients[]): void {
     this.selectedIngredients = ingredients;
 
-    const ingredientsFormArray = this.newRecipeForm.get('ingredients') as FormArray;
+    const ingredientsFormArray = this.newRecipeForm.get(
+      'ingredients'
+    ) as FormArray;
     ingredientsFormArray.clear();
     ingredients.forEach((ingredient) => {
-      ingredientsFormArray.push(this.fb.group({
-        id_ingredient: [ingredient.id_ingredient, Validators.required],
-        ingredient_name: [ingredient.ingredient_name, Validators.required],
-      }));
+      ingredientsFormArray.push(
+        this.fb.group({
+          id_ingredient: [ingredient.id_ingredient, Validators.required],
+          ingredient_name: [ingredient.ingredient_name, Validators.required],
+        })
+      );
     });
-    
   }
 
   // Méthode pour ajouter une étape de préparation au FormArray
   addStep(): void {
     const stepsFormArray = this.newRecipeForm.get('steps') as FormArray;
-    stepsFormArray.push(this.fb.group({
-      description: ['', Validators.required],
-      order_step: [stepsFormArray.length + 1] // L'ordre est défini automatiquement
-    }));
+    stepsFormArray.push(
+      this.fb.group({
+        description: ['', Validators.required],
+        order_step: [stepsFormArray.length + 1], // L'ordre est défini automatiquement
+      })
+    );
   }
 
   // Méthode pour retirer une étape de préparation du FormArray
@@ -96,7 +96,9 @@ export class NewRecipeComponent implements OnInit {
         time_preparation: formValue.time_preparation,
         difficulty: formValue.difficulty,
         ingredient: formValue.ingredients.map((ing: any) => ing.id_ingredient),
-        preparation_step: formValue.steps
+        preparation_step: formValue.steps,
+        creation_date: new Date(),
+        id_user: parseInt(localStorage.getItem('user_id') || '0', 10)
       };
 
       // Ajout de l'ID de l'utilisateur connecté

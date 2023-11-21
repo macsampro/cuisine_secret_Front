@@ -41,16 +41,14 @@ export class UsersService {
       )
       .pipe(
         tap((response) => {
-          console.log(
-            'REGARDE CA POUR VOIR COMMENT TU RECOIS ID DE LA PERS CONNECTER',
-            response.id_user
-          );
 
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('username', response.username);
+          localStorage.setItem('user_id', response.id_user.toString());
+
 
           if (response.id_user && Number.isFinite(response.id_user)) {
-            localStorage.setItem('id_user', response.id_user);
+            localStorage.setItem('user_id', response.id_user.toString());
 
             console.log(
               'Id utilisateur stocké:',
