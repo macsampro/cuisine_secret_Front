@@ -35,7 +35,7 @@ export class UsersService {
 
   login(username: string, password_hash: string) {
     return this.http
-      .post<{ access_token: string; id_user: string; username: string }>(
+      .post<{ access_token: string; user_id: string; username: string }>(
         `${this.urlApi}auth/login`,
         { username, password_hash }
       )
@@ -44,11 +44,11 @@ export class UsersService {
 
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('username', response.username);
-          localStorage.setItem('user_id', response.id_user.toString());
+          localStorage.setItem('user_id', response.user_id.toString());
 
 
-          if (response.id_user && Number.isFinite(response.id_user)) {
-            localStorage.setItem('user_id', response.id_user.toString());
+          if (response.user_id && Number.isFinite(response.user_id)) {
+            localStorage.setItem('user_id', response.user_id.toString());
 
             console.log(
               'Id utilisateur stocké:',
