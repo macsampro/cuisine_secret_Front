@@ -2,8 +2,12 @@
   <h2>Créer une nouvelle recette</h2>
   <form [formGroup]="newRecipeForm" (ngSubmit)="onSubmit()">
 
+<!-- Ajouter le champ de téléchargement d'image -->
 
-<img src="http://localhost:3000/411e5a98dd68b4babd78cd5a1edbc224" alt="">
+<!-- <input type="file" id="image_id" formControlName="image_id" class="form-control-file" accept="image/*" (change)="onImageSelected($event)"> -->
+<!-- <input type="file" (change)="onImageSelected($event)" /> -->
+<img *ngIf="imageUrl" [src]="imageUrl" alt="Image de la recette">
+
 
     <div class="form-group">
       <label for="title">Titre</label>

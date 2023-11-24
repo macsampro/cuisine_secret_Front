@@ -14,7 +14,8 @@ export class NavBarComponent {
   logout() {
     if (this.loginService.checkConnexion()) {
       localStorage.removeItem('access_token'); // effacer le token stocker dans le localstorage
-      localStorage.removeItem('username'); // effacer l'id de l'utilisateur stocker dans le localstorage
+      localStorage.removeItem('username'); // effacer le usernam de l'utilisateur stocker dans le localstorage
+      localStorage.removeItem('user_id'); // effacer l'id de l'utilisateur stocker dans le localstorage
       // Rediriger l'utilisateur vers la page de connexion
       this.router.navigate(['/login_page']);
       // Afficher un message si nécessaire

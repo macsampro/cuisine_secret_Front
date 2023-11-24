@@ -57,7 +57,7 @@ export class LoginPageComponent {
     }
   }
 
-  goSignUp(){
+  goToSignUp(){
     this.router.navigate(['sign_up']);
 
   }

@@ -38,10 +38,12 @@ export class RecipesService {
   }
 
   // Ajoute une nouvelle recette
-  addRecipe(recipe: Recipes): Observable<Recipes> {
-    return this.http.post<Recipes>(`${this.urlApi}`, recipe, {
-      headers: this.getHeaders(),
-    });
+  addRecipe(recipe: Recipes): Observable<Partial<Recipes>> {
+    return (
+      this.http.post<Partial<Recipes>>(`${this.urlApi}`, recipe, {
+        headers: this.getHeaders(),
+      })
+    );
   }
 
   // Modifie une recette existante (mise à jour partielle)
@@ -59,9 +61,9 @@ export class RecipesService {
   }
 
   // Méthode pour récupérer les types de recettes
-getRecipeTypes(): Observable<RecipeType[]> {
-  return this.http.get<RecipeType[]>(`${this.urlApi}/types`, {
-    headers: this.getHeaders(),
-  });
-}
+  getRecipeTypes(): Observable<RecipeType[]> {
+    return this.http.get<RecipeType[]>(`${this.urlApi}/types`, {
+      headers: this.getHeaders(),
+    });
+  }
 }

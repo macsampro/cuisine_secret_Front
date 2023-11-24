@@ -1,16 +1,23 @@
+.home-recipe{
+  margin-top: 250PX;
+}
+
 body{
   display: flex;
 }
 
 .mesCards{
+  margin-top: 250PX;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 
+
 }
 .maCard{
-  flex-grow: 4;
+  /* flex-grow: 4; */
   align-items:center;
   flex-shrink: 3;
+
 }

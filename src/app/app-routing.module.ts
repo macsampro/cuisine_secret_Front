@@ -7,6 +7,7 @@ import { ModifyRecipeComponent } from './pages/modify-recipe/modify-recipe.compo
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
 import { NewRecipeComponent } from './pages/new-recipe/new-recipe.component';
+import { NewImageComponent } from './pages/new-image/new-image.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,6 +17,8 @@ const routes: Routes = [
   { path: 'login_page', component: LoginPageComponent },
   { path: 'sign_up', component: SignUpPageComponent },
   { path: 'new-recipe', component: NewRecipeComponent },
+  { path: 'new-image', component: NewImageComponent },
+  
   {path: '**', component: Page404Component}
 
 

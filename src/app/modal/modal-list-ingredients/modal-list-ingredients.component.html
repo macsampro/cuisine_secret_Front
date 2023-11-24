@@ -1,4 +1,4 @@
-<dialog #myDialog>
+<!-- <dialog #myDialog>
     <button (click)="closeModalIngredients()" type="button" autofocus>valider</button>
     <p>Liste des ingrédients :</p>
     <ul>
@@ -14,4 +14,32 @@
 <button (click)="openModalIngredients()" type="button">
     Ouvrir la liste des ingrédients
 </button>
+ -->
 
+
+
+
+
+
+<!-- ------------------------------------- -->
+<dialog #myDialog>
+    <button class="mybtn" (click)="closeModalIngredients()" type="button" autofocus>valider</button>
+    <p>Liste des ingrédients :</p>
+    <ul>
+        <li id="checklist" *ngFor="let ingredient of mesIngredient">
+
+            <input value="{{ ingredient.id_ingredient }} " (change)="ajoutMonIngredient($event, ingredient)"
+                type="checkbox" id="{{ ingredient.id_ingredient }}" [checked]="isIngredientSelected(ingredient)" />
+            <label for="{{ ingredient.id_ingredient }}">{{ingredient.ingredient_name}}</label>
+
+        </li>
+    </ul>
+</dialog>
+<button (click)="openModalIngredients()" type="button">
+    Ouvrir la liste des ingrédients
+</button>
+
+
+
+
+<!-- ------------------------------------- -->
