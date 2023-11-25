@@ -1,1 +1,10 @@
-<p>new-image works!</p>
+<div class="container  ">
+    <h2 class="mb-3">Ajouter une image à la recette</h2>
+    <div class="mb-3">
+      <label for="imageInput" class="form-label">Choisir une image</label>
+      <input type="file" id="imageInput" (change)="onImageSelected($event)" class="form-control">
+    </div>
+  
+    <button class="btn btn-primary" (click)="uploadImage(imageFile)">Télécharger l'image</button>
+  </div>
+  

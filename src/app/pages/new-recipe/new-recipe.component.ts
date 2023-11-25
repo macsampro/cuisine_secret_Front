@@ -19,7 +19,6 @@ export class NewRecipeComponent implements OnInit {
   recipeTypes: RecipeType[] = [];
   imageFile!: File;
   image_id!: number;
-  //  null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +40,6 @@ export class NewRecipeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadRecipeTypes();
-    // console.log(this.loadRecipeTypes);
   }
   //recupeter les type de recettes
   private loadRecipeTypes(): void {
@@ -54,17 +52,6 @@ export class NewRecipeComponent implements OnInit {
       }
     );
   }
-
-  // Modifier la méthode pour gérer le fichier d'image
-  // onImageSelected(event: Event): void {
-  //   const input = event.target as HTMLInputElement;
-  //   console.log('qui suis-je ? ', event);
-  //   if (input.files && input.files.length) {
-  //     const file = input.files[0];
-  //     this.imageFile = file;
-  //     console.log('est-ce le nom de mopn image : ', this.imageFile);
-  //   }
-  // }
 
   onImageSelected(event: any) {
     const file = event.target.files[0];
@@ -123,14 +110,10 @@ export class NewRecipeComponent implements OnInit {
 
   // Méthode pour soumettre le formulaire
   onSubmit(): void {
-    console.log('est-ce le nom de mopn image : ', this.imageFile);
-    // && this.imageFile
     if (this.newRecipeForm.valid) {
-      const formData = new FormData();
-
-      console.log(this.imageFile, 'OOOOOOOOOOOOOOOOO');
-      alert('copucou');
+      // const formData = new FormData();
       const formValue = this.newRecipeForm.value;
+
       const newRecipe = {
         title: formValue.title,
         recipe_type: formValue.recipe_type,
@@ -145,41 +128,20 @@ export class NewRecipeComponent implements OnInit {
         steps: formValue.steps,
       };
 
-      if (this.newRecipeForm) {
-        newRecipe.id_user = this.userService.getUserConnected();
-        console.log('ma photo : ', formData); // Pas sûr que ça ça marche
-
-        this.recipeService.addRecipe(newRecipe).subscribe({
-          next: (response) => {
-            console.log('reponce du backend', response);
-            const recipeString = JSON.stringify(newRecipe);
-
-            // Création de la chaîne de requête
-            const queryParams = new URLSearchParams({
-              recipe: recipeString,
-            }).toString();
-            this.router.navigate(['/new-image'], {
-              queryParams: { recipe: queryParams },
-            });
-          },
-        });
-        // this.photoServices.postImage(formData).subscribe({
-        //   next: (response: any) => {
-        //     console.log(this.newRecipeForm.value, 'OOOOOOOOOOO');
-        //     // L'API doit renvoyer l'ID de l'image téléchargée
-        //     const imageId = response.imageId;
-        //     console.log('image id : ', imageId);
-        //     // Ensuite, créez la recette avec l'ID de l'image
-        //     this.createRecipe({ ...newRecipe, imageId });
-        //   },
-        //   error: (error) => {
-        //     alert('test');
-        //     console.error('Error uploading image:', error);
-        //   },
-        // });
-      }
+      this.recipeService.addRecipe(newRecipe).subscribe({
+        next: (response) => {
+          // Redirection vers la modale pour ajouter une photo avec l'ID de la recette
+          this.router.navigate(['/new-image'], {
+            queryParams: { recipeId: response.id_recipe },
+          });
+        },
+        error: (error) => {
+          console.error('Erreur lors de la création de la recette :', error);
+        },
+      });
     }
   }
+
   createRecipe(recipeData: any) {
     alert('coucou');
     this.recipeService.addRecipe(recipeData).subscribe({
