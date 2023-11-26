@@ -18,7 +18,7 @@ import { ModifyRecipeComponent } from './pages/modify-recipe/modify-recipe.compo
 import { ModalListIngredientsComponent } from './modal/modal-list-ingredients/modal-list-ingredients.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
-import { NewRecipeComponent } from './pages/new-recipe/new-recipe.component';
+import { NewRecipeComponent } from './pages/new-recipe/NewRecipeComponent';
 import { NewImageComponent } from './pages/new-image/new-image.component';
 @NgModule({
   declarations: [
@@ -36,13 +36,20 @@ import { NewImageComponent } from './pages/new-image/new-image.component';
     NewRecipeComponent,
     NewImageComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule,HttpClientModule,ReactiveFormsModule,],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi:true,
+      multi: true,
     },
-  ],  bootstrap: [AppComponent],
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -6,7 +6,7 @@ import { PageRecipeComponent } from './pages/page-recipe/page-recipe.component';
 import { ModifyRecipeComponent } from './pages/modify-recipe/modify-recipe.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
-import { NewRecipeComponent } from './pages/new-recipe/new-recipe.component';
+import { NewRecipeComponent } from './pages/new-recipe/NewRecipeComponent';
 import { NewImageComponent } from './pages/new-image/new-image.component';
 
 const routes: Routes = [
@@ -18,14 +18,12 @@ const routes: Routes = [
   { path: 'sign_up', component: SignUpPageComponent },
   { path: 'new-recipe', component: NewRecipeComponent },
   { path: 'new-image', component: NewImageComponent },
-  
-  {path: '**', component: Page404Component}
 
-
+  { path: '**', component: Page404Component },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

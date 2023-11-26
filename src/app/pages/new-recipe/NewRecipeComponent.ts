@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Ingredients } from 'src/app/models/ingredients';
-import { Recipes } from 'src/app/models/recipes';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { UsersService } from 'src/app/services/users.service';
 import { RecipeType } from 'src/app/models/recipe-type';
@@ -44,7 +43,6 @@ export class NewRecipeComponent implements OnInit {
   //recupeter les type de recettes
   private loadRecipeTypes(): void {
     this.recipeService.getRecipeTypes().subscribe(
-      
       (types) => {
         this.recipeTypes = types;
       },
