@@ -1,37 +1,45 @@
-<div><img src="https://images01.nicepagecdn.com/c461c07a441a5d220e8feb1a/7970258974aa53589f636936/jkjk-min.jpg"
-      alt="image de la recette"></div>
-<div *ngIf="recipes">
-   <div>
-      <h1>Title : {{recipes.title}}</h1>
-      <p>id_photo : {{recipes.id_photo[0]?.id_photo}}</p>
+<div class="recipe-container" *ngIf="recipes">
+   <!-- Image & Title Container -->
+   <div class="recipe-header">
+     <img class="recipe-image" [src]="getImageUrl(recipes.id_photo[0]?.id_photo)" alt="Image de la recette">
+     <div class="recipe-title">
+       <h1>{{recipes.title}}</h1>
+       <p class="recipe-id">id_photo : {{recipes.id_photo[0]?.id_photo}}</p>
+     </div>
    </div>
-   <div>
-      <p>Description : {{recipes.description}} </p>
-      <p >recipe_type : {{recipes.recipe_type}}</p>
-      <p>difficulty : {{recipes.difficulty}}</p>
-      <p>time_preparation : {{recipes.time_preparation}} </p>
+ 
+   <!-- Description & Details Container -->
+   <div class="recipe-details">
+     <p class="recipe-description">Description : {{recipes.description}}</p>
+     <p class="recipe-type">Type : {{recipes.recipe_type}}</p>
+     <p class="recipe-difficulty">Difficulté : {{recipes.difficulty}}</p>
+     <p class="recipe-time">Temps de préparation : {{recipes.time_preparation}}</p>
    </div>
-
-   <div>
-      <h3>Ingrédients :</h3>
-      <ul>
-         <li *ngFor="let ingredient of recipes.ingredient">
-            {{ ingredient.ingredient_name }}
-         </li>
-      </ul>
+ 
+   <!-- Ingredients List -->
+   <div class="recipe-ingredients">
+     <h3>Ingrédients :</h3>
+     <ul>
+       <li *ngFor="let ingredient of recipes.ingredient">
+         {{ ingredient.ingredient_name }}
+       </li>
+     </ul>
    </div>
-
-   <div>
-      <h3>Étapes de préparation :</h3>
-      <ol> 
-         <li  *ngFor="let step of recipes.preparation_step">
-            {{ step.description }}
-         </li>
-      </ol>
+ 
+   <!-- Preparation Steps -->
+   <div class="recipe-preparation">
+     <h3>Étapes de préparation :</h3>
+     <ol> 
+       <li *ngFor="let step of recipes.preparation_step">
+         {{ step.description }}
+       </li>
+     </ol>
    </div>
-   <div> 
-      <button (click)="goPageRecipeModiffy(recipeId)" >modifier ma recette</button> 
+ 
+   <!-- Action Buttons -->
+   <div class="recipe-actions"> 
+     <button class="button-modify" (click)="goPageRecipeModiffy(recipeId)">Modifier ma recette</button> 
+     <button class="button-delete" (click)="deleteRecipe()">Supprimer ma recette</button> 
    </div>
-
-
-
+ </div>
+ 
