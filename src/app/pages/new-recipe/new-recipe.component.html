@@ -2,11 +2,11 @@
   <h2>Créer une nouvelle recette</h2>
   <form [formGroup]="newRecipeForm" (ngSubmit)="onSubmit()">
 
-<!-- Ajouter le champ de téléchargement d'image -->
+    <!-- Ajouter le champ de téléchargement d'image -->
 
-<!-- <input type="file" id="image_id" formControlName="image_id" class="form-control-file" accept="image/*" (change)="onImageSelected($event)"> -->
-<!-- <input type="file" (change)="onImageSelected($event)" /> -->
-<img *ngIf="imageUrl" [src]="imageUrl" alt="Image de la recette">
+    <!-- <input type="file" id="image_id" formControlName="image_id" class="form-control-file" accept="image/*" (change)="onImageSelected($event)"> -->
+    <!-- <input type="file" (change)="onImageSelected($event)" /> -->
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="Image de la recette">
 
 
     <div class="form-group">
@@ -20,7 +20,7 @@
       <input formControlName="description" class="form-control" placeholder="Description de la recette" />
     </div>
 
-   
+
     <div class="form-group">
       <label>Type de recette</label>
       <select formControlName="recipe_type" class="form-control">
@@ -49,6 +49,8 @@
     <app-modal-list-ingredients [ingredientsEnregistrer]="ingredientsRecus"
       (ingredientsSelected)="onIngredientsSelected($event)">
     </app-modal-list-ingredients>
+
+
 
     <div *ngIf="selectedIngredients.length > 0">
       <h3>Ingrédients actuels de la recette :</h3>

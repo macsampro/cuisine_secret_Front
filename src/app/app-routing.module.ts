@@ -6,7 +6,7 @@ import { PageRecipeComponent } from './pages/page-recipe/page-recipe.component';
 import { ModifyRecipeComponent } from './pages/modify-recipe/modify-recipe.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
-import { NewRecipeComponent } from './pages/new-recipe/NewRecipeComponent';
+import { NewRecipeComponent } from './pages/new-recipe/new-recipe.component';
 import { NewImageComponent } from './pages/new-image/new-image.component';
 
 const routes: Routes = [
