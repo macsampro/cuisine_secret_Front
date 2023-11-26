@@ -178,14 +178,21 @@ export class ModifyRecipeComponent implements OnInit {
 
   addStep(): void {
     const stepsArray = this.getSteps();
-    const newStep = {
-      id_preparation_step: length+1,
+    
+    const newStep = this.fb.group({
       description: '',
       order_step: stepsArray.length + 1,
       id_recipe: this.recipeId,
-    };
-    stepsArray.push(this.createStepFormGroup(newStep as PreparationSteps));
-  }    
+    });
+    stepsArray.push(newStep);
+  }
+    
+    
+    
+    
+    
+    
+
 
 
 //   onSubmitRecipe(): void {
