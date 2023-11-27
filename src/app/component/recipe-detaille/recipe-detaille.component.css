@@ -1,106 +1,149 @@
-.recipe-container {
-  max-width: 800px;
-  margin: 0 auto;
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.recipe-header {
+/* Styles globaux pour l'arrière-plan et le conteneur principal */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  min-height: 100vh;
 }
 
+/* Styles de la carte de recette */
+.recipe-container {
+  background: white;
+  width: 90%;
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  margin: 200px auto 0; /* Ajout de margin-top ici */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* En-tête de la carte avec image et titre */
+.recipe-header {
+  width: 100%;
+  background: #fafafa;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styles de l'image de la recette */
 .recipe-image {
-  width: 200px;
+  width: 100%;
   height: 200px;
   object-fit: cover;
-  margin-right: 20px;
   border-radius: 10px;
 }
 
-.recipe-title {
-  flex-grow: 1;
-}
-
-h1 {
-  margin: 0 0 10px 0;
+/* Styles du titre de la recette */
+.recipe-title h1 {
   color: #333;
+  font-size: 1.75rem;
+  margin: 15px 0 5px;
 }
 
-.recipe-id {
-  font-style: italic;
-  color: #666;
-}
-
-.recipe-details,
-.recipe-ingredients,
-.recipe-preparation {
-  margin-bottom: 20px;
-}
-
-.recipe-description,
-.recipe-type,
-.recipe-difficulty,
-.recipe-time {
-  background: #e7e7e7;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 5px 0;
-}
-
-ul,
-ol {
-  padding-left: 20px;
-}
-
-.recipe-actions {
+/* Styles des détails de la recette */
+.recipe-details {
+  padding: 15px;
   text-align: center;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+/* Liste des ingrédients et étapes de préparation */
+.recipe-ingredients ul,
+.recipe-preparation ol {
+  padding: 15px;
+  list-style: none;
+  text-align: left;
+}
+
+/* Boutons d'action */
+.recipe-actions {
+  display: flex;
+  justify-content: space-around; /* Modification pour un meilleur espacement */
+  width: 100%;
+  padding: 15px;
+  background: #fafafa;
 }
 
 .button-modify,
-.button-delete {
+.button-delete,
+.button-return {
   padding: 10px 20px;
-  margin: 0 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-weight: bold;
+  text-transform: uppercase;
+  outline: none;
+  margin: 0 10px; /* Uniformiser l'espacement entre les boutons */
+  color: white; /* Texte blanc pour tous les boutons */
+  width: calc(33.333% - 20px); /* Donne la même largeur à tous les boutons */
 }
 
 .button-modify {
-  background-color: #4caf50;
-  color: white;
-}
-
-.button-modify:hover {
-  background-color: #45a049;
+  background-color: #ffa726; /* Orange */
 }
 
 .button-delete {
-  background-color: #f44336;
-  color: white;
+  background-color: #f44336; /* Rouge */
+}
+
+.button-return {
+  background-color: #333; /* Noir */
+}
+
+.button-modify:hover {
+  background-color: #fb8c00; /* Orange plus foncé */
 }
 
 .button-delete:hover {
-  background-color: #d73833;
+  background-color: #d32f2f; /* Rouge plus foncé */
 }
 
-@media (max-width: 600px) {
+.button-return:hover {
+  background-color: #444; /* Noir plus foncé */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .recipe-container {
+    width: 95%;
+    margin-top: 100px; /* Ajustement pour les petits écrans */
+  }
+
+  .recipe-title h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
   .recipe-header {
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 15px;
   }
 
   .recipe-image {
-    width: 100%;
-    height: auto;
-    margin-bottom: 20px;
+    height: 150px;
   }
 
-  .recipe-container {
-    padding: 10px;
+  .recipe-title h1 {
+    font-size: 1.3rem;
+  }
+
+  .button-modify,
+  .button-delete,
+  .button-return {
+    padding: 8px 10px; /* Ajustement des paddings pour les très petits écrans */
+    font-size: 0.9rem; /* Ajustement de la taille de la police */
   }
 }

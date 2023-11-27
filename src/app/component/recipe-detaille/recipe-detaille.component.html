@@ -1,10 +1,9 @@
 <div class="recipe-container" *ngIf="recipes">
    <!-- Image & Title Container -->
    <div class="recipe-header">
-     <img class="recipe-image" [src]="getImageUrl(recipes.id_photo[0]?.id_photo)" alt="Image de la recette">
      <div class="recipe-title">
+       <img [src]="getImageUrl(recipes.id_photo[0])" alt="Image de la recette"  height="400px">
        <h1>{{recipes.title}}</h1>
-       <p class="recipe-id">id_photo : {{recipes.id_photo[0]?.id_photo}}</p>
      </div>
    </div>
  
@@ -38,8 +37,9 @@
  
    <!-- Action Buttons -->
    <div class="recipe-actions"> 
-     <button class="button-modify" (click)="goPageRecipeModiffy(recipeId)">Modifier ma recette</button> 
-     <button class="button-delete" (click)="deleteRecipe()">Supprimer ma recette</button> 
+    <button (click)="goBack()">Retour</button>
+     <button class="button-modify" *ngIf="userId === recipes.id_user" (click)="goPageRecipeModiffy(recipeId)">Modifier ma recette</button> 
+     <button class="button-delete" *ngIf="userId === recipes.id_user" (click)="deleteRecipe()">Supprimer ma recette</button> 
    </div>
  </div>
  

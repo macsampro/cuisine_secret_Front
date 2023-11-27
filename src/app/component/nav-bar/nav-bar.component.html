@@ -1,30 +1,28 @@
-<div id="mainNavigation" class="navbar navbar-default fixed-top ">
-    <nav role="navigation">
-      <div class="py-3 text-center border-bottom">
-        <img src="/assets/logo/logo-recettes-cuisine-chef.png" alt="logo" class="invert">
-      </div>
-    </nav>
-    <div class="navbar-expand-md">
-      <div class="navbar-dark text-center my-2">
-        <button class="navbar-toggler w-75" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span> <span class="align-middle">Menu</span>
-        </button>
-      </div>
-      <div class="text-center mt-3 collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav mx-auto ">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="my-recipe">Mes Recettes </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="new-recipe">Nouvelle Recette</a>
-          </li>
-          <li class="nav-item">
-            <button class="nav-link" (click)="logout()">Déconnexion</button>
-          </li>
-        </ul>
-      </div>
+<!-- Bootstrap Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img src="/assets/logo/logo-recettes-cuisine-chef.png" alt="logo" width="60" height="60" class="d-inline-block align-top">
+      Recettes Chef
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="my-recipe">Mes Recettes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="new-recipe">Nouvelle Recette</a>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-secondary" onclick="logout()">Déconnexion</button>
+        </li>
+      </ul>
     </div>
-  </div> 
+  </div>
+</nav>

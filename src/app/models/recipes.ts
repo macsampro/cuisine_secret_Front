@@ -3,7 +3,7 @@ import { PreparationSteps } from "./preparation-steps";
 import { RecipeType } from "./recipe-type";
 
 export interface Recipes {
-  steps: any;
+  // steps: any;
   id_recipe: number;
   title: string;
   recipe_type: RecipeType;
@@ -15,4 +15,5 @@ export interface Recipes {
   ingredient:Ingredients[];
   preparation_step: PreparationSteps[];
   id_photo?: number[]; 
+  imageUrl?: string;
 }
