@@ -37,8 +37,16 @@ export class RecipesService {
     });
   }
 
+  getUserRecipes(userId: number): Observable<Recipes[]> {
+    return this.http.get<Recipes[]>(`${this.urlApi}/user/${userId}`, {
+      headers: this.getHeaders(),
+    });
+  }
+  
+
   // Ajoute une nouvelle recette
   addRecipe(recipe: Recipes): Observable<Partial<Recipes>> {
+    console.log('la nouvelle recette 2 :',recipe)
     return (
       this.http.post<Partial<Recipes>>(`${this.urlApi}`, recipe, {
         headers: this.getHeaders(),
