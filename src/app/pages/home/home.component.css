@@ -1,5 +1,6 @@
 .home-recipe{
   margin-top: 250PX;
+  /* background-color: rgb(48,35,58); */
 }
 
 body{
@@ -7,7 +8,8 @@ body{
 }
 
 .mesCards{
-  margin-top: 250PX;
+  background-color: 30233A;
+  /* margin-top: 250PX; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

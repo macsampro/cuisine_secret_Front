@@ -5,14 +5,15 @@ import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent {
-
   constructor(private router: Router, private loginService: LoginService) {}
 
   logout() {
     if (this.loginService.checkConnexion()) {
+      console.log('test unlog');
+      
       localStorage.removeItem('access_token'); // effacer le token stocker dans le localstorage
       localStorage.removeItem('username'); // effacer le usernam de l'utilisateur stocker dans le localstorage
       localStorage.removeItem('user_id'); // effacer l'id de l'utilisateur stocker dans le localstorage
@@ -22,5 +23,4 @@ export class NavBarComponent {
       alert('Vous avez été déconnecté.');
     }
   }
-
 }
