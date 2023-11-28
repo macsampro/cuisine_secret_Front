@@ -114,6 +114,8 @@ export class NewRecipeComponent implements OnInit {
     if (this.newRecipeForm.valid) {
       // const formData = new FormData();
       const formValue = this.newRecipeForm.value;
+      console.log('log form-value',formValue);
+      
 
       const newRecipe = {
         title: formValue.title,
@@ -122,7 +124,7 @@ export class NewRecipeComponent implements OnInit {
         time_preparation: formValue.time_preparation,
         difficulty: formValue.difficulty,
         ingredient: formValue.ingredients.map((ing: any) => ing.id_ingredient),
-        preparation_step: formValue.preparation_step,
+        preparation_step: formValue.steps,
         creation_date: new Date(),
         id_user: parseInt(localStorage.getItem('user_id') || '0', 10),
         id_recipe: 0,

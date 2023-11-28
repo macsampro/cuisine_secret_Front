@@ -1,5 +1,9 @@
 .home-recipe{
-  margin-top: 250PX;
+  background-size:cover;
+  background-image: url('../../../assets/background/BG1.png');
+  background-attachment: fixed;
+  /* margin-top: 250PX; */
+  padding-top: 200px;
   /* background-color: rgb(48,35,58); */
 }
 

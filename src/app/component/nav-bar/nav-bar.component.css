@@ -1,3 +1,29 @@
+
+
+
+
+
+.navbar{
+    background-color: transparent;
+    background-image: url('../../../assets/background/DALL.png');
+    border: 1px solid rgb(16, 15, 15);
+    box-shadow:
+    2.8px 2.8px 2.2px rgba(0, 0, 0, 0.061),
+    6.7px 6.7px 5.3px rgba(0, 0, 0, 0.074),
+    12.5px 12.5px 10px rgba(0, 0, 0, 0.092),
+    22.3px 22.3px 17.9px rgba(0, 0, 0, 0.125),
+    41.8px 41.8px 33.4px rgba(0, 0, 0, 0.179),
+    100px 100px 80px rgba(0, 0, 0, 0.26);
+
+    border-radius: 0px 0px 20px 20px ;
+}
+
+img{
+    border-radius: 20px;
+    border: solid 1px rgb(255, 255, 255);
+}
+  
+
 .btt {
     color: #090909;
     padding: 0.7em 1.7em;

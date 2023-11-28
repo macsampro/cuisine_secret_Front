@@ -1,39 +1,4 @@
 
-<!-- <div class="container">
-  <div *ngFor="let recipe of recipes">
-    <div class="card" style="width: 18rem">
-      <div class="nft">
-        <div class="main">
-          <img
-          [src]="recipe.imageUrl || '../../../assets/img_erreur.jpg'"
-          alt="Image de recette"
-          />
-          <h2>{{ recipe.title }}</h2>
-          <p class="description">{{ recipe.description }}.</p>
-          <div class="tokenInfo">
-            <div class="dificulty">
-              <p>Difficulté:</p>
-              <div>{{ recipe.difficulty }}</div>
-            </div>
-            <div class="duration">
-              <ins>◷</ins>
-              <p>{{ recipe.time_preparation }}</p>
-            </div>
-          </div>
-          <hr />
-          <div class="btn-warning">
-            <button (click)="goRecipeDetaille(recipe.id_recipe)">RECETTE</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-   -->
-
-
-
-
 <div class="mesCards home-recipe">
   <app-card class="maCard" *ngFor="let recipe of recipes" [oneRecipe]="recipe"></app-card>
 

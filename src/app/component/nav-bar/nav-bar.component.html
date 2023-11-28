@@ -1,24 +1,23 @@
-<!-- Bootstrap Navbar -->
-<nav class="navbar navbar-expand-lg bg-gradient   fixed-top">
-  <div class="container-fluid bg-transparent  " >
-    <a class=" text-light navbar-brand" href="/">
-      <img src="../../../assets/logo/mima-logo-2.png" alt="logo" width="200" height="150" class="d-inline-block"></a>
+<nav class="navbar navbar-expand-lg bg-light fixed-top " >
+  <div class="container-fluid "  >
+    <a class=" text-light navbar-brand" href="/" >
+      <img src="../../../assets/logo/mima-logo-2.png" alt="logo" width="200" height="100" class="d-inline-block"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-            <a class="bbtt btn btn-light " aria-current="page" href="/">Home</a>
+            <a class="bbtt btn btn-light " aria-current="page" href="/" style=" margin-right:20px;">Home</a>
         </li>
         <li class="nav-item">
-            <a class="bbtt btn btn-light" href="my-recipe">Mes Recettes</a>            
+            <a class="bbtt btn btn-light" href="my-recipe" style=" margin-right:20px;">Mes Recettes</a>            
         </li>
         <li class="nav-item">
-            <a class="bbtt  btn btn-light" href="new-recipe">Nouvelle Recette</a>
+            <a class="bbtt  btn btn-light" href="new-recipe" style=" margin-right:20px;">Nouvelle Recette</a>
         </li>
         <li class="nav-item">
-          <button class="bbtt btn btn-light" (click)="logout()">Déconnexion</button>
+          <button class="bbtt btn btn-light" style=" margin-right:20px;" (click)="logout()">Déconnexion</button>
         </li>
       </ul>
     </div>

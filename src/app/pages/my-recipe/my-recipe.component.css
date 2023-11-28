@@ -1,22 +1,25 @@
+
 .home-recipe{
-  margin-top: 250PX;
+  padding-top: 250PX;
+  background-size:cover;
+  background-image: url('../../../assets/background/BG1.png');
+  background-attachment: fixed;
+
 }
 
 body{
   display: flex;
 }
 
-.mesCards{
-  margin-top: 250PX;
+.mesCards{  
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-
-
+  
+  
 }
 .maCard{
-  /* flex-grow: 4; */
   align-items:center;
   flex-shrink: 3;
 
