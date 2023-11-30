@@ -123,7 +123,7 @@ export class NewRecipeComponent implements OnInit {
         description: formValue.description,
         time_preparation: formValue.time_preparation,
         difficulty: formValue.difficulty,
-        ingredient: formValue.ingredients.map((ing: any) => ing.id_ingredient),
+        ingredient: formValue.ingredients,
         preparation_step: formValue.steps,
         creation_date: new Date(),
         id_user: parseInt(localStorage.getItem('user_id') || '0', 10),
