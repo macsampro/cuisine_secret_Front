@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Users } from '../models/users';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { IsAuthetifiedService } from './is-authetified.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class UsersService {
   urlApi: string = 'http://localhost:3000/';
   users: Users[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private isAuthentified:IsAuthetifiedService) {}
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('access_token');
@@ -43,6 +44,7 @@ export class UsersService {
         tap((response) => {
 
           localStorage.setItem('access_token', response.access_token);
+          this.isAuthentified.setToken(true)
           localStorage.setItem('username', response.username);
           localStorage.setItem('user_id', response.user_id.toString());
 

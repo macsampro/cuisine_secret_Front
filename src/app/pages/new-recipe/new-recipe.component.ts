@@ -118,7 +118,7 @@ export class NewRecipeComponent implements OnInit {
       
 
       const newRecipe = {
-        title: formValue.title,
+        title: formValue.title.replace(/[<>]/g, ''),
         recipe_type: formValue.recipe_type,
         description: formValue.description,
         time_preparation: formValue.time_preparation,

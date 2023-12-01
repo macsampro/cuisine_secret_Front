@@ -27,14 +27,16 @@ export class LoginPageComponent {
 
   private initialForm() {
     this.connexion = this.fb.group({
-      username: ['', Validators.required],
+      username: ['', Validators.required, Validators.pattern('[A-Za-z0-9._-]+')],
       password_hash: ['', Validators.required],
     });
   }
 
   OnConnect() {
+    
     if (this.connexion.valid) {
-      let username = this.connexion.value.username;
+      const sanitizedUsername = this.connexion.value.username.replace(/[<>]/g, '');
+      let username = sanitizedUsername
       let password_hash = this.connexion.value.password_hash;
       this.userService.login(username, password_hash).subscribe({
         next: (response: any) => {

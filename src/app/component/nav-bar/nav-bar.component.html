@@ -10,14 +10,14 @@
         <li class="nav-item">
             <a class="bbtt btn btn-light " aria-current="page" href="/" style=" margin-right:20px;">Home</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isToken">
             <a class="bbtt btn btn-light" href="my-recipe" style=" margin-right:20px;">Mes Recettes</a>            
         </li>
-        <li class="nav-item">
-            <a class="bbtt  btn btn-light" href="new-recipe" style=" margin-right:20px;">Nouvelle Recette</a>
+        <li class="nav-item" *ngIf="isToken">
+            <a  class="bbtt  btn btn-light" href="new-recipe" style=" margin-right:20px;">Nouvelle Recette</a>
         </li>
         <li class="nav-item">
-          <button class="bbtt btn btn-light" style=" margin-right:20px;" (click)="logout()">Déconnexion</button>
+          <button class="bbtt btn btn-light" style=" margin-right:20px;" (click)="logout()">{{ isToken ? 'Déconnexion' : 'Connexion' }}</button>
         </li>
       </ul>
     </div>
