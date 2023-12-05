@@ -38,7 +38,7 @@ export class MyRecipeComponent implements OnInit {
               recipe.imageUrl = urlCreator.createObjectURL(blob);
             });
           } else {
-            recipe.imageUrl = 'assets/default-recipe-image.jpg'; // Assurez-vous que cette image par défaut existe dans le dossier assets.
+            recipe.imageUrl = 'assets/default-recipe-image.jpg'; 
           }
         });
       });

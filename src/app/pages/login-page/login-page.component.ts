@@ -27,7 +27,8 @@ export class LoginPageComponent {
 
   private initialForm() {
     this.connexion = this.fb.group({
-      username: ['', Validators.required, Validators.pattern('[A-Za-z0-9._-]+')],
+      username: ['', Validators.required],
+      // username: ['', Validators.required, Validators.pattern('[A-Za-z0-9._-]+')],
       password_hash: ['', Validators.required],
     });
   }
