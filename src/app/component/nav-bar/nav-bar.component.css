@@ -5,7 +5,7 @@
 
 .navbar{
     background-color: transparent;
-    background-image: url('../../../assets/background/DALL.png');
+    /* background-image: url('../../../assets/background/DALL.png'); */
     border: 1px solid rgb(16, 15, 15);
     box-shadow:
     2.8px 2.8px 2.2px rgba(0, 0, 0, 0.061),
@@ -44,3 +44,14 @@ img{
     box-shadow: 4px 4px 12px #c5c5c5,
                -4px -4px 12px #ffffff;
   }
+
+
+
+  @media screen and (max-width: 990px) {
+    .navbar{
+      background-color:#ffffff;
+      /* background-image: url('../../../assets/background/DALL.png'); */
+  }
+  
+  }
+

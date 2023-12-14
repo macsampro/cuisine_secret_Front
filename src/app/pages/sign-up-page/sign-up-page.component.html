@@ -1,87 +1,78 @@
-<div class="login-container">
-  <form [formGroup]="addUser" (ngSubmit)="onSubmit()" class="form-login">
-    <ul class="login-nav">
-      <li class="login-nav__item">
-        <a href="#">Connexion</a>
-      </li>
-      <li class="login-nav__item active">
-        <a href="#">Inscription</a>
-      </li>
-    </ul>
+<div class="backgroundImg">
+  <div class="container">
+    <form class="form" [formGroup]="addUser" (ngSubmit)="onSubmit()">
+      <p id="heading">INSCRIPTION</p>
 
-    <label for="sign-up-input-user" class="login__label">
-      Nom d'utilisateur
-    </label>
-    <input
-      formControlName="username"
-      id="sign-up-input-user"
-      class="login__input"
-      type="text"
-      [ngClass]="{
-        'is-invalid':
-          addUser.get('username')?.touched && addUser.get('username')?.invalid
-      }"
-    />
+      <div class="field">
+        <input
+          formControlName="username"
+          autocomplete="on"
+          placeholder="Username"
+          class="input-field"
+          type="text"
+          [ngClass]="{
+            'is-invalid':
+              addUser.get('username')?.touched &&
+              addUser.get('username')?.invalid
+          }"
+        />
+        <div
+          *ngIf="
+            addUser.get('username')?.touched && addUser.get('username')?.invalid
+          "
+          class="invalid-feedback"
+        >
+          Le pseudo est requis.
+        </div>
+      </div>
 
-    <div
-      *ngIf="
-        addUser.get('username')?.touched && addUser.get('username')?.invalid
-      "
-      class="invalid-feedback"
-    >
-      Le pseudo est requis.
-    </div>
+      <div class="field">
+        <input
+          formControlName="email"
+          autocomplete="on"
+          placeholder="E-mail"
+          class="input-field"
+          type="email"
+          [ngClass]="{
+            'is-invalid':
+              addUser.get('email')?.touched && addUser.get('email')?.invalid
+          }"
+        />
 
-    <label for="sign-up-input-email" class="login__label"> Email </label>
-    <input
-      formControlName="email"
-      id="sign-up-input-email"
-      class="login__input"
-      type="email"
-      [ngClass]="{
-        'is-invalid':
-          addUser.get('email')?.touched && addUser.get('email')?.invalid
-      }"
-    />
+        <div
+          *ngIf="addUser.get('email')?.touched && addUser.get('email')?.invalid"
+          class="invalid-feedback"
+        >
+          Format d'adresse e-mail invalide.
+        </div>
+      </div>
 
-    <div
-      *ngIf="addUser.get('email')?.touched && addUser.get('email')?.invalid"
-      class="invalid-feedback"
-    >
-      Format d'adresse e-mail invalide.
-    </div>
+      <div class="field">
+        <input
+          formControlName="password_hash"
+          autocomplete="on"
+          placeholder="Mot de passe"
+          class="input-field"
+          type="password"
+          [ngClass]="{
+            'is-invalid':
+              addUser.get('password_hash')?.touched &&
+              addUser.get('password_hash')?.invalid
+          }"
+        />
+        <div
+          *ngIf="
+            addUser.get('password_hash')?.touched &&
+            addUser.get('password_hash')?.invalid
+          "
+          class="invalid-feedback"
+        >
+          Le mot de passe doit contenir 8-12 caractères, incluant des
+          majuscules, des minuscules et des chiffres.
+        </div>
+      </div>
 
-    <label for="sign-up-input-password" class="login__label">
-      Mot de passe
-    </label>
-    <input
-      formControlName="password_hash"
-      id="sign-up-input-password"
-      class="login__input"
-      type="password"
-      
-      [ngClass]="{
-        'is-invalid':
-          addUser.get('password_hash')?.touched &&
-          addUser.get('password_hash')?.invalid
-      }"
-    />
-    <div
-    *ngIf="
-      addUser.get('password_hash')?.touched &&
-      addUser.get('password_hash')?.invalid
-    "
-    class="invalid-feedback"
-  >
-    Le mot de passe doit contenir au moins 8 caractères, une majuscule,
-    une minuscule et un chiffre.
+      <button class="button1">S'inscrire</button>
+    </form>
   </div>
-
-
-
-    <button class="login__submit">S'inscrire</button>
-  </form>
 </div>
-
-
-

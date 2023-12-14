@@ -25,7 +25,9 @@ export class SignUpPageComponent {
     this.addUser = this.formBuilder.group({
       username: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password_hash: new FormControl('', Validators.required),
+      // password_hash: new FormControl('', Validators.required),
+      password_hash: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,12}$')])
+
     });
   }
 
