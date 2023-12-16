@@ -1,39 +1,50 @@
 <div class="container">
   <h2>Créer une nouvelle recette</h2>
   <form [formGroup]="newRecipeForm" (ngSubmit)="onSubmit()">
-
     <!-- Ajouter le champ de téléchargement d'image -->
 
     <!-- <input type="file" id="image_id" formControlName="image_id" class="form-control-file" accept="image/*" (change)="onImageSelected($event)"> -->
     <!-- <input type="file" (change)="onImageSelected($event)" /> -->
-    <img *ngIf="imageUrl" [src]="imageUrl" alt="Image de la recette">
-
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="Image de la recette" />
 
     <div class="form-group">
       <label for="title">Titre</label>
-      <input formControlName="title" id="title" class="form-control" type="text"
-        placeholder="Entrez le titre de la recette">
+      <input
+        formControlName="title"
+        id="title"
+        class="form-control"
+        type="text"
+        placeholder="Entrez le titre de la recette"
+      />
     </div>
 
     <div class="form-group">
       <label>Description</label>
-      <input formControlName="description" class="form-control" placeholder="Description de la recette" />
+      <input
+        formControlName="description"
+        class="form-control"
+        placeholder="Description de la recette"
+      />
     </div>
-
 
     <div class="form-group">
       <label>Type de recette</label>
       <select formControlName="recipe_type" class="form-control">
         <option value="">Sélectionner le type de recette</option>
-        <option *ngFor="let type of recipeTypes" [value]="type">{{ type }}</option>
+        <option *ngFor="let type of recipeTypes" [value]="type">
+          {{ type }}
+        </option>
       </select>
     </div>
 
-
-
     <div class="form-group">
       <label>Temps de préparation</label>
-      <input formControlName="time_preparation" class="form-control" type="time" placeholder="Temps de préparation" />
+      <input
+        formControlName="time_preparation"
+        class="form-control"
+        type="time"
+        placeholder="Temps de préparation"
+      />
     </div>
 
     <div class="form-group">
@@ -46,11 +57,11 @@
       </select>
     </div>
 
-    <app-modal-list-ingredients [ingredientsEnregistrer]="ingredientsRecus"
-      (ingredientsSelected)="onIngredientsSelected($event)">
+    <app-modal-list-ingredients
+      [ingredientsEnregistrer]="ingredientsRecus"
+      (ingredientsSelected)="onIngredientsSelected($event)"
+    >
     </app-modal-list-ingredients>
-
-
 
     <div *ngIf="selectedIngredients.length > 0">
       <h3>Ingrédients actuels de la recette :</h3>
@@ -61,22 +72,30 @@
       </ul>
     </div>
 
-
-
     <div formArrayName="steps">
       <h3>Étapes de préparation</h3>
-      <div *ngFor="let step of newRecipeForm.controls.steps.controls; let i = index" [formGroupName]="i">
+      <div
+        *ngFor="
+          let step of newRecipeForm.controls.steps.controls;
+          let i = index
+        "
+        [formGroupName]="i"
+      >
         <div class="form-group">
-          <label for="description-{{i}}">Description</label>
-          <textarea formControlName="description" id="description-{{i}}" class="form-control"></textarea>
+          <label for="description-{{ i }}">Description</label>
+          <textarea
+            formControlName="description"
+            id="description-{{ i }}"
+            class="form-control"
+          ></textarea>
         </div>
         <button type="button" class="btn btn-danger" (click)="removeStep(i)">Supprimer l'étape</button>
       </div>
-      <button type="button" class="btn btn-primary" (click)="addStep()">Ajouter une étape</button>
+      <div class="btn-final">
+        <button type="button" class="btn btn-primary" (click)="addStep()">Ajouter une étape</button>
+        <button type="submit" class="btn btn-success">Créer la recette</button>
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+      </div>
     </div>
-
-
-    <button type="submit" class="btn btn-success">Créer la recette</button>
-    <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
   </form>
 </div>
